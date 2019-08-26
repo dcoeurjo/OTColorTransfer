@@ -36,29 +36,26 @@ bool silent;
 namespace compute = boost::compute;
 
 void slicedTransfer(std::vector<float> &source,
-                    const std::vector<float> &target,
-                    const int nbSteps,
-                    const int batchSize)
+const std::vector<float> &target,
+const int nbSteps,
+const int batchSize)
 {
   
   //Random generator init to draw random line directions
   std::mt19937 gen(0);
   std::normal_distribution<float> dist{0.0,1.0};
   
-  const auto N =  source.size() / 3;
+  const auto N = source.size() / 3;
   
   // get default OpenCL device and setup context
   compute::device device = compute::system::default_device();
   compute::context context(device);
   compute::command_queue queue(context, device);
-
+  
   //Sending buffers
-  using namespace boost::adaptors;
-  using namespace boost::assign;
   compute::vector<float> sourceGPUx(N, context);
   compute::vector<float> sourceGPUy(N, context);
   compute::vector<float> sourceGPUz(N, context);
- 
   compute::vector<float> targetGPUx(N, context);
   compute::vector<float> targetGPUy(N, context);
   compute::vector<float> targetGPUz(N, context);
@@ -87,34 +84,55 @@ void slicedTransfer(std::vector<float> &source,
   compute::vector<float> advectX(N,context);
   compute::vector<float> advectY(N,context);
   compute::vector<float> advectZ(N,context);
-  compute::fill(advectX.begin(), advectX.end(), 0.0, queue);
-  compute::fill(advectY.begin(), advectY.end(), 0.0, queue);
-  compute::fill(advectZ.begin(), advectZ.end(), 0.0, queue);
-
+  
   //To store the 1D projections
   compute::vector<float> projsource(N, context);
   compute::vector<float> projtarget(N, context);
+  
   compute::vector<float> delta(N, context);
-
+  
   //Pixel Id
   compute::vector<unsigned int> idSource(N, context);
   compute::vector<unsigned int> idTarget(N, context);
-  compute::iota(idSource.begin(), idSource.end(), 0, queue);
-  compute::iota(idTarget.begin(), idTarget.end(), 0, queue);
- 
-  std::vector<unsigned int> idS(N);
-  compute::copy(idSource.begin(), idSource.end(), idS.begin(), queue);
-  assert(idS[N-1] == (N-1));
   
-
-
+  
+  if (!silent)
+  {
+    std::cout<<" TSource points: "<<std::endl;
+    compute::copy(sourceGPUx.begin(), sourceGPUx.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+    std::cout<<std::endl;
+    compute::copy(sourceGPUy.begin(), sourceGPUy.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+    std::cout<<std::endl;
+    compute::copy(sourceGPUz.begin(), sourceGPUz.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+    std::cout<<std::endl;
+    std::cout<<std::endl;
+  }
+  if (!silent)
+  {
+    std::cout<<" Target points: "<<std::endl;
+    compute::copy(targetGPUx.begin(), targetGPUx.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+    std::cout<<std::endl;
+    compute::copy(targetGPUy.begin(), targetGPUy.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+    std::cout<<std::endl;
+    compute::copy(targetGPUz.begin(), targetGPUz.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+    std::cout<<std::endl;
+    std::cout<<std::endl;
+  }
+  
   using boost::compute::lambda::_1;
   using boost::compute::lambda::_2;
-
+  
   for(auto step = 0 ; step < nbSteps; ++step)
   {
+    compute::fill(advectX.begin(), advectX.end(), 0.0, queue);
+    compute::fill(advectY.begin(), advectY.end(), 0.0, queue);
+    compute::fill(advectZ.begin(), advectZ.end(), 0.0, queue);
+    
+    queue.finish();
+    
     for(auto batch = 0; batch < batchSize; ++batch )
     {
+      queue.finish();
       //Random direction
       float dirx = dist(gen);
       float diry = dist(gen);
@@ -123,70 +141,154 @@ void slicedTransfer(std::vector<float> &source,
       dirx /= norm;
       diry /= norm;
       dirz /= norm;
-      if (!silent) std::cout<<"Slice "<<step<<" batch "<<batch<<"  "<<dirx<<","<<diry<<","<<dirz<<std::endl;
+      if (step==1)
+      {
+        dirx = 1.0;///= norm;
+        diry = 0; //= norm;
+        dirz = 0.0; ///= norm;
+      }
+      if (step==0)
+      {
+        dirx = 0.0;///= norm;
+        diry = 1.0; //= norm;
+        dirz = 0.0; ///= norm;
+        
+      }
+      if (step==2)
+      {
+        dirx = 0.0;///= norm;
+        diry = 0.0; //= norm;
+        dirz = 1.0; ///= norm;
+        
+      }
+      //if (!silent)
+      std::cout<<"Slice "<<step<<" batch "<<batch<<"  ("<<dirx<<","<<diry<<","<<dirz<<")"<<std::endl;
       
       //We project the points
+      //compute::fill(projsource.begin(), projsource.end(), 0.0, queue);
+      // compute::fill(projtarget.begin(), projtarget.end(), 0.0, queue);
+      queue.finish();
+      
       compute::transform(sourceGPUx.begin(), sourceGPUx.end(), sourceGPUy.begin(), projsource.begin(), _1*dirx+_2*diry,  queue);
+      queue.finish();
       compute::transform(sourceGPUz.begin(), sourceGPUz.end(), projsource.begin(), projsource.begin(), _1*dirz + _2,  queue);
-
+      queue.finish();
+      
       // projTarget
       compute::transform(targetGPUx.begin(), targetGPUx.end(), targetGPUy.begin(), projtarget.begin(),  _1*dirx + _2*diry,  queue);
+      queue.finish();
       compute::transform(targetGPUz.begin(), targetGPUz.end(), projtarget.begin(), projtarget.begin(),  _1*dirz + _2,  queue);
       
-    /*std::cout<<"porjavant"<<std::endl;
-      compute::copy(projsource.begin(), projsource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(idSource.begin(), idSource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(projtarget.begin(), projtarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(idTarget.begin(), idTarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      std::cout<<std::endl;*/
-
+      if (!silent)
+      {
+        std::cout<<"Avant tri"<<std::endl;
+        compute::copy(projsource.begin(), projsource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<"Id: ";
+        compute::copy(idSource.begin(), idSource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        compute::copy(projtarget.begin(), projtarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<"Id: ";
+        compute::copy(idTarget.begin(), idTarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<std::endl;
+      }
+      queue.finish();
+      
+      compute::iota(idSource.begin(), idSource.end(), 0, queue);
+      compute::iota(idTarget.begin(), idTarget.end(), 0, queue);
+      
+      queue.finish();
       //1D optimal transport of the projections with two sorts
       compute::sort_by_key(projsource.begin(),projsource.end(), idSource.begin(), queue);
       compute::sort_by_key(projtarget.begin(),projtarget.end(), idTarget.begin(), queue);
+      queue.finish();
       
-    /*  std::cout<<"projapres"<<std::endl;
-      compute::copy(projsource.begin(), projsource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(idSource.begin(), idSource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(projtarget.begin(), projtarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(idTarget.begin(), idTarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      std::cout<<std::endl;
-      std::cout<<std::endl;*/
-
+      if (!silent)
+      {std::cout<<"Apres tri"<<std::endl;
+        compute::copy(projsource.begin(), projsource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<"Id: ";
+        compute::copy(idSource.begin(), idSource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        compute::copy(projtarget.begin(), projtarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<"Id: ";
+        compute::copy(idTarget.begin(), idTarget.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<std::endl;
+        std::cout<<std::endl;
+      }
+      
+      queue.finish();
       
       compute::transform(projtarget.begin(), projtarget.end(), projsource.begin(),  delta.begin(), compute::minus<float>(), queue);
       //delta[i] is the shift for the i-th point along the projection (idSource[i] point in Source)
+      queue.finish();
       
       //Reorder delta[i]
-    /*  std::cout<<"scatter"<<std::endl;
-      compute::copy(delta.begin(), delta.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;
-      compute::copy(idSource.begin(), idSource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;*/
+      if (!silent)
+      {
+        std::cout<<"scatter"<<std::endl;
+        compute::copy(delta.begin(), delta.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<"Id: ";compute::copy(idSource.begin(), idSource.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        
+      }
+      
       compute::scatter(delta.begin(), delta.end(), idSource.begin(), delta.begin(), queue);
-    /* std::cout<<"scatter res ";
-      compute::copy(delta.begin(), delta.end(), std::ostream_iterator<float>(std::cout, " "), queue);
-      std::cout<<std::endl;*/
+      if (!silent)
+      {
+        std::cout<<"scatter res(source) ";
+        compute::copy(delta.begin(), delta.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+      }
+      queue.finish();
       
       compute::transform(advectX.begin(), advectX.end(), delta.begin(), advectX.begin(), _1 + _2*dirx, queue);
+      queue.finish();
       compute::transform(advectY.begin(), advectY.end(), delta.begin(), advectY.begin(), _1 + _2*diry, queue);
+      queue.finish();
       compute::transform(advectZ.begin(), advectZ.end(), delta.begin(), advectZ.begin(), _1 + _2*dirz, queue);
+      queue.finish();
+      
+      if (!silent)
+      {
+        std::cout<<" Advect vectors: "<<std::endl;
+        compute::copy(advectX.begin(), advectX.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        compute::copy(advectY.begin(), advectY.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        compute::copy(advectZ.begin(), advectZ.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+        std::cout<<std::endl;
+        std::cout<<std::endl;
+      }
+      
+      queue.finish();
+      
     }
     //Advection
     compute::transform(sourceGPUx.begin(), sourceGPUx.end(),advectX.begin(),sourceGPUx.begin(), _1 + _2/(float)batchSize, queue);
+    queue.finish();
     compute::transform(sourceGPUy.begin(), sourceGPUy.end(),advectY.begin(),sourceGPUy.begin(), _1 + _2/(float)batchSize, queue);
+    queue.finish();
     compute::transform(sourceGPUz.begin(), sourceGPUz.end(),advectZ.begin(),sourceGPUz.begin(), _1 + _2/(float)batchSize, queue);
-
-    compute::fill(advectX.begin(), advectX.end(), 0.0, queue);
-    compute::fill(advectY.begin(), advectY.end(), 0.0, queue);
-    compute::fill(advectZ.begin(), advectZ.end(), 0.0, queue);
+    queue.finish();
+    
+    if (!silent)
+    {
+      std::cout<<" Source advected points: "<<std::endl;
+      compute::copy(sourceGPUx.begin(), sourceGPUx.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+      std::cout<<std::endl;
+      compute::copy(sourceGPUy.begin(), sourceGPUy.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+      std::cout<<std::endl;
+      compute::copy(sourceGPUz.begin(), sourceGPUz.end(), std::ostream_iterator<float>(std::cout, " "), queue);
+      std::cout<<std::endl;
+      std::cout<<std::endl;
+    }
+    
   }
   
   //Final copy to the CPU
@@ -274,7 +376,7 @@ int main(int argc, char **argv)
       transport[i+2*width*height] = sourcefloat[3*i+2] - static_cast<float>(source[3*i+2]);
     }
     transport.blur_bilateral(transport, sigmaXY,sigmaV);
-  
+    
     auto output2(output);
     for(auto i = 0 ; i < width*height ; ++i)
     {
