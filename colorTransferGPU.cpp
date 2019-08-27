@@ -19,7 +19,7 @@
 #include <boost/compute/algorithm/count_if.hpp>
 #include <boost/compute/function.hpp>
 #include <boost/compute/algorithm/iota.hpp>
-#include <boost/compute/algorithm/sort_by_key.hpp>
+#include <boost/compute/algorithm/stable_sort_by_key.hpp>
 #include <boost/compute/algorithm/sort.hpp>
 #include <boost/compute/algorithm/scatter.hpp>
 #include <boost/compute/algorithm/accumulate.hpp>
@@ -61,22 +61,22 @@ const int batchSize)
   compute::vector<float> targetGPUz(N, context);
   
   std::vector<float> tmp(N);
-  for(auto i=0; i< N; ++i) tmp[i] = source[3*i];
+  for(auto i=0; i< N; ++i) tmp[i] = source[3*i] + std::abs(dist(gen))*3.1;
   compute::copy(tmp.begin(), tmp.end(), sourceGPUx.begin(), queue);
   
-  for(auto i=0; i< N; ++i) tmp[i] = source[3*i+1];
+  for(auto i=0; i< N; ++i) tmp[i] = source[3*i+1]+  std::abs(dist(gen))*3.1;
   compute::copy(tmp.begin(), tmp.end(), sourceGPUy.begin(), queue);
   
-  for(auto i=0; i< N; ++i) tmp[i] = source[3*i+2];
+  for(auto i=0; i< N; ++i) tmp[i] = source[3*i+2]+  std::abs(dist(gen))*3.1;
   compute::copy(tmp.begin(), tmp.end(), sourceGPUz.begin(), queue);
   
-  for(auto i=0; i< N; ++i) tmp[i] = target[3*i];
+  for(auto i=0; i< N; ++i) tmp[i] = target[3*i]+  std::abs(dist(gen))*3.1;
   compute::copy(tmp.begin(), tmp.end(), targetGPUx.begin(), queue);
   
-  for(auto i=0; i< N; ++i) tmp[i] = target[3*i+1];
+  for(auto i=0; i< N; ++i) tmp[i] = target[3*i+1]+  std::abs(dist(gen))*3.1;
   compute::copy(tmp.begin(), tmp.end(), targetGPUy.begin(), queue);
   
-  for(auto i=0; i< N; ++i) tmp[i] = target[3*i+2];
+  for(auto i=0; i< N; ++i) tmp[i] = target[3*i+2]+  std::abs(dist(gen))*3.1;
   compute::copy(tmp.begin(), tmp.end(), targetGPUz.begin(), queue);
   
   
@@ -88,7 +88,6 @@ const int batchSize)
   //To store the 1D projections
   compute::vector<float> projsource(N, context);
   compute::vector<float> projtarget(N, context);
-  
   compute::vector<float> delta(N, context);
   
   //Pixel Id
@@ -127,12 +126,8 @@ const int batchSize)
     compute::fill(advectX.begin(), advectX.end(), 0.0, queue);
     compute::fill(advectY.begin(), advectY.end(), 0.0, queue);
     compute::fill(advectZ.begin(), advectZ.end(), 0.0, queue);
-    
-    queue.finish();
-    
     for(auto batch = 0; batch < batchSize; ++batch )
     {
-      queue.finish();
       //Random direction
       float dirx = dist(gen);
       float diry = dist(gen);
@@ -141,13 +136,13 @@ const int batchSize)
       dirx /= norm;
       diry /= norm;
       dirz /= norm;
-      if (step==1)
+      if (step==0)
       {
         dirx = 1.0;///= norm;
         diry = 0; //= norm;
         dirz = 0.0; ///= norm;
       }
-      if (step==0)
+      if (step==1)
       {
         dirx = 0.0;///= norm;
         diry = 1.0; //= norm;
@@ -161,23 +156,22 @@ const int batchSize)
         dirz = 1.0; ///= norm;
         
       }
-      //if (!silent)
-      std::cout<<"Slice "<<step<<" batch "<<batch<<"  ("<<dirx<<","<<diry<<","<<dirz<<")"<<std::endl;
+      
+      if (!silent)
+        std::cout<<"Slice "<<step<<" batch "<<batch<<"  ("<<dirx<<","<<diry<<","<<dirz<<")"<<std::endl;
       
       //We project the points
-      //compute::fill(projsource.begin(), projsource.end(), 0.0, queue);
-      // compute::fill(projtarget.begin(), projtarget.end(), 0.0, queue);
-      queue.finish();
-      
       compute::transform(sourceGPUx.begin(), sourceGPUx.end(), sourceGPUy.begin(), projsource.begin(), _1*dirx+_2*diry,  queue);
       queue.finish();
       compute::transform(sourceGPUz.begin(), sourceGPUz.end(), projsource.begin(), projsource.begin(), _1*dirz + _2,  queue);
       queue.finish();
       
       // projTarget
+      queue.finish();
       compute::transform(targetGPUx.begin(), targetGPUx.end(), targetGPUy.begin(), projtarget.begin(),  _1*dirx + _2*diry,  queue);
       queue.finish();
       compute::transform(targetGPUz.begin(), targetGPUz.end(), projtarget.begin(), projtarget.begin(),  _1*dirz + _2,  queue);
+      queue.finish();
       
       if (!silent)
       {
@@ -194,15 +188,16 @@ const int batchSize)
         std::cout<<std::endl;
         std::cout<<std::endl;
       }
-      queue.finish();
       
       compute::iota(idSource.begin(), idSource.end(), 0, queue);
-      compute::iota(idTarget.begin(), idTarget.end(), 0, queue);
-      
       queue.finish();
+      compute::iota(idTarget.begin(), idTarget.end(), 0, queue);
+      queue.finish();
+      
       //1D optimal transport of the projections with two sorts
-      compute::sort_by_key(projsource.begin(),projsource.end(), idSource.begin(), queue);
-      compute::sort_by_key(projtarget.begin(),projtarget.end(), idTarget.begin(), queue);
+      compute::stable_sort_by_key(projsource.begin(),projsource.end(), idSource.begin(), queue);
+      queue.finish();
+      compute::stable_sort_by_key(projtarget.begin(),projtarget.end(), idTarget.begin(), queue);
       queue.finish();
       
       if (!silent)
@@ -221,11 +216,11 @@ const int batchSize)
         std::cout<<std::endl;
       }
       
-      queue.finish();
       
-      compute::transform(projtarget.begin(), projtarget.end(), projsource.begin(),  delta.begin(), compute::minus<float>(), queue);
-      //delta[i] is the shift for the i-th point along the projection (idSource[i] point in Source)
       queue.finish();
+      compute::transform(projtarget.begin(), projtarget.end(), projsource.begin(),  delta.begin(), compute::minus<float>(), queue);
+      queue.finish();
+      //delta[i] is the shift for the i-th point along the projection (idSource[i] point in Source)
       
       //Reorder delta[i]
       if (!silent)
@@ -237,16 +232,19 @@ const int batchSize)
         std::cout<<std::endl;
         
       }
+      queue.finish();
       
+      queue.finish();
       compute::scatter(delta.begin(), delta.end(), idSource.begin(), delta.begin(), queue);
+      queue.finish();
       if (!silent)
       {
         std::cout<<"scatter res(source) ";
         compute::copy(delta.begin(), delta.end(), std::ostream_iterator<float>(std::cout, " "), queue);
         std::cout<<std::endl;
       }
-      queue.finish();
       
+      queue.finish();
       compute::transform(advectX.begin(), advectX.end(), delta.begin(), advectX.begin(), _1 + _2*dirx, queue);
       queue.finish();
       compute::transform(advectY.begin(), advectY.end(), delta.begin(), advectY.begin(), _1 + _2*diry, queue);
@@ -265,9 +263,6 @@ const int batchSize)
         std::cout<<std::endl;
         std::cout<<std::endl;
       }
-      
-      queue.finish();
-      
     }
     //Advection
     compute::transform(sourceGPUx.begin(), sourceGPUx.end(),advectX.begin(),sourceGPUx.begin(), _1 + _2/(float)batchSize, queue);
@@ -292,11 +287,15 @@ const int batchSize)
   }
   
   //Final copy to the CPU
+  queue.finish();
   std::vector<float> sx(N);
   std::vector<float> sy(N);
   std::vector<float> sz(N);
+  queue.finish();
   compute::copy(sourceGPUx.begin(), sourceGPUx.end(), sx.begin(), queue);
+  queue.finish();
   compute::copy(sourceGPUy.begin(), sourceGPUy.end(), sy.begin(), queue);
+  queue.finish();
   compute::copy(sourceGPUz.begin(), sourceGPUz.end(), sz.begin(), queue);
   for(auto i=0; i < N; ++i)
   {

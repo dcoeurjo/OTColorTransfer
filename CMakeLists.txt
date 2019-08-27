@@ -16,6 +16,7 @@ include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 set(EXAMPLES
   colorTransfer
   colorTransferGPU
+  devices
 )
 
 foreach(EXAMPLE ${EXAMPLES})
@@ -24,6 +25,6 @@ foreach(EXAMPLE ${EXAMPLES})
     if(APPLE)
       target_link_libraries(${EXAMPLE} "-framework OpenGL")
     elseif(UNIX)
-      target_link_libraries(${EXAMPLE} GL)
+      target_link_libraries(${EXAMPLE} GL -lpthread -lm)
     endif()
 endforeach()
