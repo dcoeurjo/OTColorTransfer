@@ -16,85 +16,53 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
+#include "UnbalancedSliced/UnbalancedSliced.h"
+
 //Global flag to silent verbose messages
 bool silent;
 
 void slicedTransfer(std::vector<float> &source,
                     const std::vector<float> &target,
-                    const int nbSteps,
-                    const int batchSize)
+                    const int nbSteps)
 {
-  //Random generator init to draw random line directions
-  std::mt19937 gen;
-  gen.seed(10);
+  omp_set_nested(0);
   
-  std::normal_distribution<float> dist{0.0,1.0};
- 
   auto N = source.size()/3;
-  
-  //Advection vector
-  std::vector<float> advect(3*N, 0.0);
-  
-  //To store the 1D projections
-  std::vector<float> projsource(N);
-  std::vector<float> projtarget(N);
-  
-  //Pixel Id
-  std::vector<unsigned int> idSource(N);
-  std::vector<unsigned int> idTarget(N);
-  
-  //Lambda expression for the comparison of points in RGB
-  //according to their projections
-  auto lambdaProjSource = [&projsource](unsigned int a, unsigned int b) {return projsource[a] < projsource[b]; };
-  auto lambdaProjTarget = [&projtarget](unsigned int a, unsigned int b) {return projtarget[a] < projtarget[b]; };
-  
-  for(auto i=0; i < idSource.size() ; ++i)
-  {
-    idSource[i]=i;
-    idTarget[i]=i;
+  auto N2= target.size()/3;
+  //Creating the diracs
+  std::vector<std::vector<Point<3, float> > > points(2);
+  points[0].resize(N);
+  points[1].resize(N2);
+  for (int i = 0; i < N; i++) {
+    points[0][i][0] = source[i * 3] ;
+    points[0][i][1] = source[i * 3+1] ;
+    points[0][i][2] = source[i * 3+2] ;
+  }
+  for (int i = 0; i < N2; i++) {
+    points[1][i][0] = target[i * 3] ;
+    points[1][i][1] = target[i * 3 + 1] ;
+    points[1][i][2] = target[i * 3 + 2] ;
   }
   
-  for(auto step =0 ; step < nbSteps; ++step)
+  //Main computation
+  UnbalancedSliced sliced;
+
+  auto start = std::chrono::system_clock::now();
+  
+  sliced.correspondencesNd<3, float>(points[0], points[1], nbSteps, true);
+  
+  auto end = std::chrono::system_clock::now();
+  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+  std::cout << "finished computation at " << std::ctime(&end_time)
+            << "elapsed time: " << elapsed_seconds.count() << "s\n";
+  
+  //Copyback
+  for (int i = 0; i < N; i++)
   {
-   for(auto batch = 0; batch < batchSize; ++batch )
-    {
-      //Random direction
-      float dirx = dist(gen);
-      float diry = dist(gen);
-      float dirz = dist(gen);
-      float norm = sqrt(dirx*dirx + diry*diry + dirz*dirz);
-      dirx /= norm;
-      diry /= norm;
-      dirz /= norm;
-      if (!silent) std::cout<<"Slice "<<step<<" batch "<<batch<<"  "<<dirx<<","<<diry<<","<<dirz<<std::endl;
-      
-      //We project the points
-      for(auto i = 0; i < projsource.size(); ++i)
-      {
-        projsource[i] = dirx * source[3*i] + diry * source[3*i+1] + dirz * source[3*i+2];
-        projtarget[i] = dirx * target[3*i] + diry * target[3*i+1] + dirz * target[3*i+2];
-      }
-      
-      //1D optimal transport of the projections with two sorts
-      std::sort(idSource.begin(), idSource.end(), lambdaProjSource);
-      std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
-      
-      //We accumulate the displacements in a batch
-      for(auto i = 0; i < idSource.size(); ++i)
-      {
-        auto pix = idSource[i];
-        advect[3*pix]   += dirx * (projtarget[idTarget[i]] - projsource[idSource[i]]);
-        advect[3*pix+1] += diry * (projtarget[idTarget[i]] - projsource[idSource[i]]);
-        advect[3*pix+2] += dirz * (projtarget[idTarget[i]] - projsource[idSource[i]]);
-      }
-    }
-    
-    //Advection
-    for(auto i = 0; i <3*N; ++i)
-    {
-      source[i] += advect[i]/(float)batchSize;
-      advect[i] = 0.0;
-    }
+    source[i * 3]   = points[0][i][0]  ;
+    source[i * 3+1] = points[0][i][1] ;
+    source[i * 3+2] = points[0][i][2];
   }
 }
 
@@ -109,8 +77,6 @@ int main(int argc, char **argv)
   app.add_option("-o,--output", outputImage, "Output image");
   unsigned int nbSteps = 3;
   app.add_option("-n,--nbsteps", nbSteps, "Number of sliced steps (3)");
-  unsigned int batchSize = 1;
-  app.add_option("-b,--sizeBatch", batchSize, "Number of dirtections on a batch (1)");
   bool applyRegularization = false;
   app.add_flag("-r,--regularization", applyRegularization, "Apply a regularization step of the transport plan using bilateral filter (false).");
   float sigmaXY = 16.0;
@@ -129,9 +95,9 @@ int main(int argc, char **argv)
   unsigned char *target = stbi_load(targetImage.c_str(), &width_target, &height_target, &nbChannels_target, 0);
   if (!silent) std::cout<< "Target image: "<<width_target<<"x"<<height_target<<"   ("<<nbChannels_target<<")"<< std::endl;
   
-  if ((width*height) != (width_target*height_target))
+  if ((width*height) > (width_target*height_target))
   {
-    std::cout<< "Image sizes do not match. "<<std::endl;
+    std::cout<< "The source image must be smaller (or equal to) than the target image. "<<std::endl;
     exit(1);
   }
   if (nbChannels <3)
@@ -149,15 +115,7 @@ int main(int argc, char **argv)
   }
   
   //Main computation
-  auto start = std::chrono::system_clock::now();
-
-  slicedTransfer(sourcefloat, targetfloat, nbSteps, batchSize);
-
-  auto end = std::chrono::system_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end - start;
-  std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-  std::cout << "finished computation at " << std::ctime(&end_time)
-            << "elapsed time: " << elapsed_seconds.count() << "s\n";
+  slicedTransfer(sourcefloat, targetfloat, nbSteps);
   
   //Output
   std::vector<unsigned char> output(width*height*nbChannels);
