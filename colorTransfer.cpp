@@ -2,6 +2,8 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <chrono>
+#include <ctime>
 
 //Command-line parsing
 #include "CLI11.hpp"
@@ -19,8 +21,7 @@ bool silent;
 
 void slicedTransfer(std::vector<float> &source,
                     const std::vector<float> &target,
-                    const int width,
-                    const int height,
+                    const int N,
                     const int nbSteps,
                     const int batchSize)
 {
@@ -30,15 +31,15 @@ void slicedTransfer(std::vector<float> &source,
   std::normal_distribution<float> dist{0.0,1.0};
   
   //Advection vector
-  std::vector<float> advect(3*width*height, 0.0);
+  std::vector<float> advect(3*N, 0.0);
   
   //To store the 1D projections
-  std::vector<float> projsource(width*height);
-  std::vector<float> projtarget(width*height);
+  std::vector<float> projsource(N);
+  std::vector<float> projtarget(N);
   
   //Pixel Id
-  std::vector<unsigned int> idSource(width*height);
-  std::vector<unsigned int> idTarget(width*height);
+  std::vector<unsigned int> idSource(N);
+  std::vector<unsigned int> idTarget(N);
   
   //Lambda expression for the comparison of points in RGB
   //according to their projections
@@ -53,7 +54,7 @@ void slicedTransfer(std::vector<float> &source,
   
   for(auto step =0 ; step < nbSteps; ++step)
   {
-    for(auto batch = 0; batch < batchSize; ++batch )
+   for(auto batch = 0; batch < batchSize; ++batch )
     {
       //Random direction
       float dirx = dist(gen);
@@ -85,8 +86,9 @@ void slicedTransfer(std::vector<float> &source,
         advect[3*pix+2] += dirz * (projtarget[idTarget[i]] - projsource[idSource[i]]);
       }
     }
+    
     //Advection
-    for(auto i = 0; i <3*width*height; ++i)
+    for(auto i = 0; i <3*N; ++i)
     {
       source[i] += advect[i]/(float)batchSize;
       advect[i] = 0.0;
@@ -138,7 +140,6 @@ int main(int argc, char **argv)
   
   std::vector<float> sourcefloat(width*height*nbChannels);
   std::vector<float> targetfloat(width*height*nbChannels);
-#pragma omp parallel for
   for(auto i = 0 ; i <width*height*nbChannels; ++i)
   {
     sourcefloat[i] = static_cast<float>(source[i]);
@@ -146,8 +147,13 @@ int main(int argc, char **argv)
   }
   
   //Main computation
-  slicedTransfer(sourcefloat, targetfloat, width, height, nbSteps, batchSize);
-  
+  auto start = std::chrono::system_clock::now();
+  slicedTransfer(sourcefloat, targetfloat, width*height, nbSteps, batchSize);
+  auto end = std::chrono::system_clock::now();
+  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+  std::cout << "finished computation at " << std::ctime(&end_time)
+            << "elapsed time: " << elapsed_seconds.count() << "s\n";
   
   //Output
   std::vector<unsigned char> output(width*height*nbChannels);

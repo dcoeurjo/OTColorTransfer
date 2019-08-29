@@ -28,8 +28,7 @@ bool silent;
 
 void slicedTransfer(std::vector<double> &source,
 const std::vector<double> &target,
-const int width,
-const int height,
+const int N,
 const int nbSteps,
 const int batchSize)
 {
@@ -39,15 +38,15 @@ const int batchSize)
   std::normal_distribution<float> dist{0.0,1.0};
   
   //Advection vector
-  std::vector<float> advect(3*width*height, 0.0);
+  std::vector<float> advect(3*N, 0.0);
   
   //To store the 1D projections
-  std::vector<float> projsource(width*height);
-  std::vector<float> projtarget(width*height);
+  std::vector<float> projsource(N);
+  std::vector<float> projtarget(N);
   
   //Pixel Id
-  std::vector<unsigned int> idSource(width*height);
-  std::vector<unsigned int> idTarget(width*height);
+  std::vector<unsigned int> idSource(N);
+  std::vector<unsigned int> idTarget(N);
   
   //Lambda expression for the comparison of points in RGB
   //according to their projections
@@ -58,11 +57,13 @@ const int batchSize)
   boost::compute::device device = boost::compute::system::default_device();
   boost::compute::context context(device);
   boost::compute::command_queue queue(context, device);
-  boost::compute::vector<float> projSourceGPU(width*height, context);
-  boost::compute::vector<float> projTargetGPU(width*height, context);
+  
+  boost::compute::vector<float> projSourceGPU(N, context);
+  boost::compute::vector<float> projTargetGPU(N, context);
+  
   //Pixel Id
-  boost::compute::vector<unsigned int> idSourceGPU(width*height, context);
-  boost::compute::vector<unsigned int> idTargetGPU(width*height, context);
+  boost::compute::vector<unsigned int> idSourceGPU(N, context);
+  boost::compute::vector<unsigned int> idTargetGPU(N, context);
   
   
   for(auto i=0; i < idSource.size() ; ++i)
@@ -92,26 +93,32 @@ const int batchSize)
         projtarget[i] = dirx * target[3*i] + diry * target[3*i+1] + dirz * target[3*i+2];
       }
       
-      boost::compute::copy(projsource.begin(), projsource.end(), projSourceGPU.begin(), queue);
-      boost::compute::copy(projtarget.begin(), projtarget.end(), projTargetGPU.begin(), queue);
-      boost::compute::iota(idSourceGPU.begin(), idSourceGPU.end(), 0, queue);
-      boost::compute::iota(idTargetGPU.begin(), idTargetGPU.end(), 0, queue);
-      
-      queue.finish();
-      
-      //1D optimal transport of the projections with two sorts
-      boost::compute::sort_by_key(projSourceGPU.begin(),projSourceGPU.end(), idSourceGPU.begin(), queue);
-      boost::compute::sort_by_key(projTargetGPU.begin(),projTargetGPU.end(), idTargetGPU.begin(), queue);
-
-      queue.finish();
-      
-  
-      boost::compute::copy(projSourceGPU.begin(), projSourceGPU.end(), projsource.begin(), queue);
-      boost::compute::copy(projTargetGPU.begin(), projTargetGPU.end(), projtarget.begin(), queue);
-      boost::compute::copy(idSourceGPU.begin(), idSourceGPU.end(), idSource.begin(), queue);
-      boost::compute::copy(idTargetGPU.begin(), idTargetGPU.end(), idTarget.begin(), queue);
-      
-      queue.finish();
+      try{
+        boost::compute::copy(projsource.begin(), projsource.end(), projSourceGPU.begin(), queue);
+        boost::compute::copy(projtarget.begin(), projtarget.end(), projTargetGPU.begin(), queue);
+        boost::compute::iota(idSourceGPU.begin(), idSourceGPU.end(), 0, queue);
+        boost::compute::iota(idTargetGPU.begin(), idTargetGPU.end(), 0, queue);
+        
+        queue.finish();
+        
+        //1D optimal transport of the projections with two sorts
+        boost::compute::sort_by_key(projSourceGPU.begin(),projSourceGPU.end(), idSourceGPU.begin(), queue);
+        boost::compute::sort_by_key(projTargetGPU.begin(),projTargetGPU.end(), idTargetGPU.begin(), queue);
+        
+        queue.finish();
+        
+        boost::compute::copy(projSourceGPU.begin(), projSourceGPU.end(), projsource.begin(), queue);
+        boost::compute::copy(projTargetGPU.begin(), projTargetGPU.end(), projtarget.begin(), queue);
+        boost::compute::copy(idSourceGPU.begin(),   idSourceGPU.end(), idSource.begin(), queue);
+        boost::compute::copy(idTargetGPU.begin(),   idTargetGPU.end(), idTarget.begin(), queue);
+       
+        
+        
+        queue.finish();}
+      catch ( ... )
+      {
+        std::cerr<<"Ooohps "<<std::endl;
+      }
       
       
       //We accumulate the displacements in a batch
@@ -124,7 +131,7 @@ const int batchSize)
       }
     }
     //Advection
-    for(auto i = 0; i <3*width*height; ++i)
+    for(auto i = 0; i <3*N; ++i)
     {
       source[i] += advect[i]/(float)batchSize;
       advect[i] = 0.0;
@@ -184,7 +191,7 @@ int main(int argc, char **argv)
   }
   
   //Main computation
-  slicedTransfer(sourcedouble, targetdouble, width, height, nbSteps, batchSize);
+  slicedTransfer(sourcedouble, targetdouble, width*height, nbSteps, batchSize);
   
   
   //Output

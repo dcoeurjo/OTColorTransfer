@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 2.8)
 
 set (CMAKE_CXX_STANDARD 11)
 
+#find openmp
+find_package(OpenMP REQUIRED)
+
 
 # find OpenCL
 find_package(OpenCL REQUIRED)
@@ -22,10 +25,9 @@ set(EXAMPLES
 
 foreach(EXAMPLE ${EXAMPLES})
     add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
+    target_link_libraries(${EXAMPLE} PUBLIC OpenMP::OpenMP_CXX)
     target_link_libraries(${EXAMPLE} ${OpenCL_LIBRARIES} ${Boost_LIBRARIES})
-    if(APPLE)
-      target_link_libraries(${EXAMPLE} "-framework OpenGL")
-    elseif(UNIX)
-      target_link_libraries(${EXAMPLE} GL -lpthread -lm)
+    if(UNIX)
+      target_link_libraries(${EXAMPLE} -lpthread -lm)
     endif()
 endforeach()
