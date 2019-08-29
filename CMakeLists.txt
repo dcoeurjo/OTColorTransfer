@@ -15,6 +15,7 @@ include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 set(EXAMPLES
   colorTransfer
+  colorTransferGPUv0
   colorTransferGPU
   devices
 )
