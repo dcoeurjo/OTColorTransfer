@@ -15,7 +15,7 @@ Input image  | Target image | Color transfer output
 
 The idea of this project is to detail a color transfer solution that considers
 the [Optimal Transport](https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)) as
-a way to *deform* an histogram (empiric probability measure) is the most *efficient way* (see below for details). The literature is huge on the subject but I would like to emphasize the fact that
+a way to *deform*  histograms in the most *efficient way* (see below for details). The literature is huge on the subject but I would like to emphasize the fact that
 the implementation of these tools is not difficult.
 
 
