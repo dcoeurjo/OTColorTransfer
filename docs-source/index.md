@@ -37,14 +37,14 @@ make
 Everything should compile with C++11 compiler. The only dependency is [OpenMP](http://openmp.org)
 for multithread features that is usually shipped with the compiler by default.
 
-On Apple MacOS, the default `clang` compiler is not shipped with OpenMP. Just install `omp` (`brew install omp`) and use the following `cmake` command line:
+On Apple MacOS, the default `clang` compiler does not have OpenMP. Just install `omp` (`brew install omp`) and use the following `cmake` command line:
 
      cmake .. -DOpenMP_C_LIB_NAMES="omp" -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp \
               -I/usr/local/opt/libomp/include" -DOpenMP_CXX_LIB_NAMES="omp" \
               -DOpenMP_omp_LIBRARY=/usr/local/opt/libomp/lib/libomp.dylib \
               -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include"
 
-## The theory:  Optimal transport and Sliced Optimal transport
+## The theory:  Optimal Transport and Sliced Optimal Transport
 
 As mentioned above, the key tool is Optimal Transport (OT for short) which can be sketched as follows: Given two  probability (Radon) measures $\mu\in X$ and $\nu\in Y$, and a *cost function* $c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+$, an optimal transport plan $T: X\rightarrow Y$ minimizes
 

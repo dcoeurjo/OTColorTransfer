@@ -265,8 +265,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" title="The theory:  Optimal transport and Sliced Optimal transport" class="md-nav__link">
-    The theory:  Optimal transport and Sliced Optimal transport
+  <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" title="The theory:  Optimal Transport and Sliced Optimal Transport" class="md-nav__link">
+    The theory:  Optimal Transport and Sliced Optimal Transport
   </a>
   
 </li>
@@ -379,8 +379,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" title="The theory:  Optimal transport and Sliced Optimal transport" class="md-nav__link">
-    The theory:  Optimal transport and Sliced Optimal transport
+  <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" title="The theory:  Optimal Transport and Sliced Optimal Transport" class="md-nav__link">
+    The theory:  Optimal Transport and Sliced Optimal Transport
   </a>
   
 </li>
@@ -454,7 +454,7 @@ make
 
 <p>Everything should compile with C++11 compiler. The only dependency is <a href="http://openmp.org">OpenMP</a>
 for multithread features that is usually shipped with the compiler by default.</p>
-<p>On Apple MacOS, the default <code class="codehilite"><span class="n">clang</span></code> compiler is not shipped with OpenMP. Just install <code class="codehilite"><span class="n">omp</span></code> (<code class="codehilite"><span class="n">brew</span> <span class="n">install</span> <span class="n">omp</span></code>) and use the following <code class="codehilite"><span class="n">cmake</span></code> command line:</p>
+<p>On Apple MacOS, the default <code class="codehilite"><span class="n">clang</span></code> compiler does not have OpenMP. Just install <code class="codehilite"><span class="n">omp</span></code> (<code class="codehilite"><span class="n">brew</span> <span class="n">install</span> <span class="n">omp</span></code>) and use the following <code class="codehilite"><span class="n">cmake</span></code> command line:</p>
 <div class="codehilite"><pre><span></span> <span class="nv">cmake</span> .. <span class="o">-</span><span class="nv">DOpenMP_C_LIB_NAMES</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">omp</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">DOpenMP_CXX_FLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">-Xpreprocessor -fopenmp \</span>
           <span class="o">-</span><span class="nv">I</span><span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">local</span><span class="o">/</span><span class="nv">opt</span><span class="o">/</span><span class="nv">libomp</span><span class="o">/</span><span class="k">include</span><span class="s2">&quot;</span><span class="s"> -DOpenMP_CXX_LIB_NAMES=</span><span class="s2">&quot;</span><span class="nv">omp</span><span class="s2">&quot;</span><span class="s"> \</span>
           <span class="o">-</span><span class="nv">DOpenMP_omp_LIBRARY</span><span class="o">=/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">local</span><span class="o">/</span><span class="nv">opt</span><span class="o">/</span><span class="nv">libomp</span><span class="o">/</span><span class="nv">lib</span><span class="o">/</span><span class="nv">libomp</span>.<span class="nv">dylib</span> \
@@ -462,7 +462,7 @@ for multithread features that is usually shipped with the compiler by default.</
 </pre></div>
 
 
-<h2 id="the-theory-optimal-transport-and-sliced-optimal-transport">The theory:  Optimal transport and Sliced Optimal transport</h2>
+<h2 id="the-theory-optimal-transport-and-sliced-optimal-transport">The theory:  Optimal Transport and Sliced Optimal Transport</h2>
 <p>As mentioned above, the key tool is Optimal Transport (OT for short) which can be sketched as follows: Given two  probability (Radon) measures <span><span class="MathJax_Preview">\mu\in X</span><script type="math/tex">\mu\in X</script></span> and <span><span class="MathJax_Preview">\nu\in Y</span><script type="math/tex">\nu\in Y</script></span>, and a <em>cost function</em> <span><span class="MathJax_Preview">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</span><script type="math/tex">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</script></span>, an optimal transport plan <span><span class="MathJax_Preview">T: X\rightarrow Y</span><script type="math/tex">T: X\rightarrow Y</script></span> minimizes</p>
 <div>
 <div class="MathJax_Preview">{\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}.}</div>
