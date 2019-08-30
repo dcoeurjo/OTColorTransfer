@@ -50,7 +50,7 @@ As mentioned above, the key tool will be Optimal Transport (OT for short) which 
 
 $${\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}.}$$
 
-The cost of the optimal transport defines a distance between Radon measure. We can define the  $p^{th}$ [Wasserstein distance](https://en.wikipedia.org/wiki/Wasserstein_metric), $\mathcal{W}_p(\mu,\nu)$ as
+The cost of the optimal transport defines a metric between Radon measure. We can define the  $p^{th}$ [Wasserstein distance](https://en.wikipedia.org/wiki/Wasserstein_metric), $\mathcal{W}_p(\mu,\nu)$ as
 
 $$\displaystyle \mathcal{W}_{p}(\mu ,\nu ):={\left(\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))^p\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}\right)^{1/p}}$$
 
