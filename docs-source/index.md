@@ -19,7 +19,7 @@ a way to *deform* an histogram (empiric probability measure) is the most *effici
 the implementation of these tools is not difficult.
 
 
-This project contains both this documentation and some C++ codes that implement the color transfer with a few dependencies as possible.
+This project contains both this documentation and some C++ codes that implement the color transfer with as few dependencies as possible.
 
 ## Building the code
 
