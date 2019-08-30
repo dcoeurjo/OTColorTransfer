@@ -1,2 +1,2 @@
 
-* Aug 30, 2019: first version (CPU balanced and unbalanced Sliced OT)
+* Aug 30, 2019: first version (CPU balanced and partial Sliced OT)
