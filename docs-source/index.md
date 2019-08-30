@@ -58,7 +58,7 @@ An analogy with piles of sand is usually used to explain the definition: let us 
 
 The link between OT and color transfer follows the observation that color histograms are discrete Radon measures. As we are looking for the *most efficient* transformation of the input image histogram to match with the target one, the color transfer problem can be reformulate as a discrete OT one [^b1][^b2] [^b3][^b4][^b5][^b6].
 
-There are many numerical solutions to compute the Optimal transport (with continuous, discrete, semi-discrete measures, w/o regularization...). We focus here on a **sliced** formulation of the OT and of the 2-Wasserstein metric in dimension $d$:
+There are many numerical solutions to compute the OT (with continuous, discrete, semi-discrete measures, w/o regularization...). We focus here on a **sliced** formulation of the OT and of the 2-Wasserstein metric in dimension $d$:
 
 $$ SW(\mu,\nu)^2 := \int_{S^d} \mathcal{W}_2( P_{\theta,\sharp}\mu,P_{\theta,\sharp}\nu)^2 d\theta\,.$$
 
