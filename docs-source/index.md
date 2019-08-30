@@ -35,7 +35,7 @@ make
 ```
 
 Everything should compile with C++11 compiler. The only dependency is [OpenMP](http://openmp.org)
-for multithread features that is included by default in most compiler.
+for multithread features that is usually shipped with the compiler by default.
 
 On Apple MacOS, the default `clang` compiler is not shipped with OpenMP. Just install `omp` (`brew install omp`) and use the following `cmake` command line:
 

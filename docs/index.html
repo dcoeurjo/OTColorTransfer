@@ -453,7 +453,7 @@ make
 </pre></div>
 
 <p>Everything should compile with C++11 compiler. The only dependency is <a href="http://openmp.org">OpenMP</a>
-for multithread features that is included by default in most compiler.</p>
+for multithread features that is usually shipped with the compiler by default.</p>
 <p>On Apple MacOS, the default <code class="codehilite"><span class="n">clang</span></code> compiler is not shipped with OpenMP. Just install <code class="codehilite"><span class="n">omp</span></code> (<code class="codehilite"><span class="n">brew</span> <span class="n">install</span> <span class="n">omp</span></code>) and use the following <code class="codehilite"><span class="n">cmake</span></code> command line:</p>
 <div class="codehilite"><pre><span></span> <span class="nv">cmake</span> .. <span class="o">-</span><span class="nv">DOpenMP_C_LIB_NAMES</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">omp</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">DOpenMP_CXX_FLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">-Xpreprocessor -fopenmp \</span>
           <span class="o">-</span><span class="nv">I</span><span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">local</span><span class="o">/</span><span class="nv">opt</span><span class="o">/</span><span class="nv">libomp</span><span class="o">/</span><span class="k">include</span><span class="s2">&quot;</span><span class="s"> -DOpenMP_CXX_LIB_NAMES=</span><span class="s2">&quot;</span><span class="nv">omp</span><span class="s2">&quot;</span><span class="s"> \</span>
