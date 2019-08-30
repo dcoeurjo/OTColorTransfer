@@ -69,12 +69,11 @@ If the measures are discrete as sum of Diracs centered at points $\{x_i\}$ and $
 $$ SW(\mu,\nu)^2 = \int_{S^d} \left(|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle| ^2\right) d\theta\,,$$
 ($\sigma_\theta(i)$ a,d ${\kappa_\theta(i)}$ are permutations with increasing order).
 
-
 Numerically, we sample the set of directions $S^d$ and thus consider a finite number of *slices*.
 
 ## Sliced OT Color Transfer
 
-Back to our histogram transfer problem, Diracs centers $\{x_i\}$ are points in RGB space for all pixels of the input image, and  $\{y_i\}$ are the colors of the target image. Matching the histogram consists can be seen a transportation of the point cloud $\mu$ to $\nu$ in $\mathbb{R^3}$ (the RGB color space).
+Back to our histogram transfer problem, Diracs centers $\{x_i\}$ are points in RGB space (one Dirac per pixel of the input image), and  $\{y_i\}$ are the colors of the target image. Matching the histogram consists can be seen a transportation of the point cloud $\mu$ to $\nu$ in $\mathbb{R^3}$ (the RGB color space).
 
 The idea is to advect points of $\mu$ such that the it minimizes $SW(\mu,\nu)$. As described in the literature[^b1][^b4], this amounts to project he points onto a random direction $\theta$, *algin* the sorted projections and advect $\mu$ in the $\theta$ direction by $|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|$.
 
