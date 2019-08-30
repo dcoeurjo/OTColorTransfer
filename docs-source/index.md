@@ -86,7 +86,7 @@ Note that the transport plan can be regularized using a simple post-processing, 
 
 ## Sliced Partial Optimal Transport
 
-The original sliced OT requires the measure to have the exact same number of Diracs ($e.g.$ input and target images must have the same size). When dealing with measures of different sizes, the combinatorial problem is more complex in the sense that we are not looking for a minimal cost bijective map between the Diracs, but an injective one. This problem is intensively discussed in the [Sliced Partial Optimal Transport](https://perso.liris.cnrs.fr/nicolas.bonneel/spot/) paper[^b6].
+The original sliced OT requires the two measures to have the exact same number of Diracs ($e.g.$ input and target images must have the same size). When dealing with measures of different sizes, the combinatorial problem is more complex in the sense that we are not looking for a minimal cost bijective map between the Diracs, but an injective one. This problem is intensively discussed in the [Sliced Partial Optimal Transport](https://perso.liris.cnrs.fr/nicolas.bonneel/spot/) paper[^b6].
 
 ![](images/partial.png)
 
