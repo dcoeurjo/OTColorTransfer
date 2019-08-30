@@ -19,7 +19,7 @@ a way to *deform*  histograms in the most *efficient way* (see below for details
 efficient implementations of these tools are not so difficult.
 
 
-This project contains both this documentation and some C++ codes that implement the color transfer with as few dependencies as possible.
+This project contains both this documentation and some C++ codes that implement the color transfer with as few dependencies as possible (just modern C++ compiler with OpenMP for best performances).
 
 ## Building the code
 
