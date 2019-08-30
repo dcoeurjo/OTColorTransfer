@@ -1,7 +1,7 @@
 # Sliced OT Color Transfer / CPU / Balanced
 
 
-We discuss some technical details of the Sliced OT implementation in C++. The code use classical STL containers and algorithm,  [stb_image.h/stb_image_writer.h](https://github.com/nothings/stb) for image IO and [Cimg](http://cimg.eu) for the bilateral filter that can be used to regularize the output.
+We discuss some technical details of the Sliced OT implementation in C++. The code use classical STL containers and algorithms,  [stb_image.h/stb_image_writer.h](https://github.com/nothings/stb) for image IO and [Cimg](http://cimg.eu) for the bilateral filter that can be used to regularize the output.
 
 !!! code
     `colorTransfer.cpp`
