@@ -87,6 +87,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="#color-transfer-via-sliced-optimal-transport" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -109,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Home
+                Intro
               
             </span>
           
@@ -225,10 +229,69 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
+      
     
-    <a href="." title="Home" class="md-nav__link md-nav__link--active">
-      Home
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Intro
+      </label>
+    
+    <a href="." title="Intro" class="md-nav__link md-nav__link--active">
+      Intro
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-code" title="Building the code" class="md-nav__link">
+    Building the code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" title="The theory:  Optimal transport and Sliced Optimal transport" class="md-nav__link">
+    The theory:  Optimal transport and Sliced Optimal transport
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliced-ot-color-transfer" title="Sliced OT Color Transfer" class="md-nav__link">
+    Sliced OT Color Transfer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliced-partial-optimal-transport" title="Sliced Partial Optimal Transport" class="md-nav__link">
+    Sliced Partial Optimal Transport
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -239,8 +302,8 @@
 
 
   <li class="md-nav__item">
-    <a href="original/" title="CPU - Balanced version" class="md-nav__link">
-      CPU - Balanced  version
+    <a href="original/" title="Color Transfer (CPU/Balanced)" class="md-nav__link">
+      Color Transfer (CPU/Balanced)
     </a>
   </li>
 
@@ -251,8 +314,8 @@
 
 
   <li class="md-nav__item">
-    <a href="todo/" title="GPU - Balanced version" class="md-nav__link">
-      GPU - Balanced version
+    <a href="partial/" title="Color Transfer (CPU/Partial)" class="md-nav__link">
+      Color Transfer (CPU/Partial)
     </a>
   </li>
 
@@ -263,8 +326,20 @@
 
 
   <li class="md-nav__item">
-    <a href="unbalanced/" title="CPU - Unbalanced version" class="md-nav__link">
-      CPU - Unbalanced version
+    <a href="todo/" title="Color Transfer (GPU/Balanced)" class="md-nav__link">
+      Color Transfer (GPU/Balanced)
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license/" title="License" class="md-nav__link">
+      License
     </a>
   </li>
 
@@ -276,15 +351,174 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-code" title="Building the code" class="md-nav__link">
+    Building the code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" title="The theory:  Optimal transport and Sliced Optimal transport" class="md-nav__link">
+    The theory:  Optimal transport and Sliced Optimal transport
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliced-ot-color-transfer" title="Sliced OT Color Transfer" class="md-nav__link">
+    Sliced OT Color Transfer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliced-partial-optimal-transport" title="Sliced Partial Optimal Transport" class="md-nav__link">
+    Sliced Partial Optimal Transport
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
                 
-                  <h1>Home</h1>
-                
-                
+                <h1 id="color-transfer-via-sliced-optimal-transport">Color Transfer via Sliced Optimal Transport</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Color transfer is an image processing application where you want to retarget the
+color histogram of an input image according to the color histogram of a target one.</p>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th>Input image</th>
+<th>Target image</th>
+<th> Color transfer output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="" src="images/pexelA-0.png" /></td>
+<td><img alt="" src="images/pexelB-0.png" /></td>
+<td><img alt="" src="images/output.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>The idea of this project is to detail a color transfer solution that considers
+the <a href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">Optimal Transport</a> as
+a way to <em>deform</em> an histogram (empiric probability measure) is the most <em>efficient way</em> (see below for details). The literature is huge on the subject but I would like to emphasize the fact that
+the implementation of these tools is not difficult.</p>
+<p>This project contains both this documentation and some C++ codes that implement the color transfer with a few dependencies as possible.</p>
+<h2 id="building-the-code">Building the code</h2>
+<p>To compile the tools, just clone the repository and use <a href="http://cmake.org">cmake</a> to build
+the project:</p>
+<div class="codehilite"><pre><span></span>git clone https://github.com/dcoeurjo/OTColorTransfer.git
+<span class="nb">cd</span> OTColorTransfer
+mkdir build <span class="p">;</span> <span class="nb">cd</span> build
+cmake .. -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+make
+</pre></div>
+
+<p>Everything should compile on a modern C++ compiler. The only dependency is <a href="http://openmp.org">OpenMP</a>
+for multithread features that is included by default in most compiler.</p>
+<p>On Apple MacOS, the default <code class="codehilite"><span class="n">clang</span></code> compiler is not shipped with OpenMP. Just install <code class="codehilite"><span class="n">omp</span></code> (<code class="codehilite"><span class="n">brew</span> <span class="n">install</span> <span class="n">omp</span></code>) and use the following <code class="codehilite"><span class="n">cmake</span></code> command line:</p>
+<div class="codehilite"><pre><span></span> <span class="nv">cmake</span> .. <span class="o">-</span><span class="nv">DOpenMP_C_LIB_NAMES</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">omp</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">DOpenMP_CXX_FLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">-Xpreprocessor -fopenmp \</span>
+          <span class="o">-</span><span class="nv">I</span><span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">local</span><span class="o">/</span><span class="nv">opt</span><span class="o">/</span><span class="nv">libomp</span><span class="o">/</span><span class="k">include</span><span class="s2">&quot;</span><span class="s"> -DOpenMP_CXX_LIB_NAMES=</span><span class="s2">&quot;</span><span class="nv">omp</span><span class="s2">&quot;</span><span class="s"> \</span>
+          <span class="o">-</span><span class="nv">DOpenMP_omp_LIBRARY</span><span class="o">=/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">local</span><span class="o">/</span><span class="nv">opt</span><span class="o">/</span><span class="nv">libomp</span><span class="o">/</span><span class="nv">lib</span><span class="o">/</span><span class="nv">libomp</span>.<span class="nv">dylib</span> \
+          <span class="o">-</span><span class="nv">DOpenMP_C_FLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<h2 id="the-theory-optimal-transport-and-sliced-optimal-transport">The theory:  Optimal transport and Sliced Optimal transport</h2>
+<p>As mentioned above, the key tool is Optimal Transport (OT for short) which can be sketched as follows: Given two  probability (Radon) measures <span><span class="MathJax_Preview">\mu\in X</span><script type="math/tex">\mu\in X</script></span> and <span><span class="MathJax_Preview">\nu\in Y</span><script type="math/tex">\nu\in Y</script></span>, and a <em>cost function</em> <span><span class="MathJax_Preview">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</span><script type="math/tex">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</script></span>, an optimal transport plan <span><span class="MathJax_Preview">T: X\rightarrow Y</span><script type="math/tex">T: X\rightarrow Y</script></span> minimizes</p>
+<div>
+<div class="MathJax_Preview">{\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}.}</div>
+<script type="math/tex; mode=display">{\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}.}</script>
+</div>
+<p>The cost of the optimal transport defines a distance between Radon measure. We can define the  <span><span class="MathJax_Preview">p^{th}</span><script type="math/tex">p^{th}</script></span> <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a>, <span><span class="MathJax_Preview">\mathcal{W}_p(\mu,\nu)</span><script type="math/tex">\mathcal{W}_p(\mu,\nu)</script></span> as</p>
+<div>
+<div class="MathJax_Preview">\displaystyle \mathcal{W}_{p}(\mu ,\nu ):={\left(\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))^p\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}\right)^{1/p}}</div>
+<script type="math/tex; mode=display">\displaystyle \mathcal{W}_{p}(\mu ,\nu ):={\left(\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))^p\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}\right)^{1/p}}</script>
+</div>
+<p>An analogy with piles of sand is usually used to rephrase the definition: let us consider that <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> is a pile of sand and <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span> a hole (with the same <em>mass</em>), if we consider that the cost of moving an elementary volume of sand from on point to the other is proportional to the Euclidean distance (<span><span class="MathJax_Preview">l_2</span><script type="math/tex">l_2</script></span> cost function), then the optimal transport plan gives you the most efficient way to move all the sand from <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> to <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span>. Again, the literature is huge and there are many alternative definitions, please refer to <a href="https://optimaltransport.github.io/book/">Computational Optimal Transport</a> for a more complete introduction to the subject.</p>
+<p>The link between OT and color transfer follows the observation that color histogram are discrete Radon measures. As we are looking for the <em>most efficient</em> transformation of the input image histogram to match with the target one, the color transfer problem can be reformulate as a discrete OT one <sup id="fnref:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup><sup id="fnref:b2"><a class="footnote-ref" href="#fn:b2">2</a></sup> <sup id="fnref:b3"><a class="footnote-ref" href="#fn:b3">3</a></sup><sup id="fnref:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup><sup id="fnref:b5"><a class="footnote-ref" href="#fn:b5">5</a></sup><sup id="fnref:b6"><a class="footnote-ref" href="#fn:b6">6</a></sup>.</p>
+<p>There are many numerical solutions to compute the Optimal transport (with continuous, discrete, semi-discrete measures, w/o regularization&hellip;). We focus here on a <strong>sliced</strong> formulation of the OT and of the 2-Wasserstein metric in dimension <span><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>:</p>
+<div>
+<div class="MathJax_Preview"> SW(\mu,\nu)^2 := \int_{S^d} \mathcal{W}_2( P_{\theta,\sharp}\mu,P_{\theta,\sharp}\nu)^2 d\theta\,.</div>
+<script type="math/tex; mode=display"> SW(\mu,\nu)^2 := \int_{S^d} \mathcal{W}_2( P_{\theta,\sharp}\mu,P_{\theta,\sharp}\nu)^2 d\theta\,.</script>
+</div>
+<p>The sliced formulation consists in projecting the measures onto a 1D line (<span><span class="MathJax_Preview">P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}</span><script type="math/tex">P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}</script></span>), solving the 1D OT problem on the projections and average the results for all directions (<span><span class="MathJax_Preview">S^d</span><script type="math/tex">S^d</script></span> unit sphere in dimension <span><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>).</p>
+<p>If the measures are discrete as sum of Diracs centered at points <span><span class="MathJax_Preview">\{x_i\}</span><script type="math/tex">\{x_i\}</script></span> and <span><span class="MathJax_Preview">\{y_i\}</span><script type="math/tex">\{y_i\}</script></span> in <span><span class="MathJax_Preview">\mathbb{R}^d</span><script type="math/tex">\mathbb{R}^d</script></span>, respectively (<span><span class="MathJax_Preview">\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}</span><script type="math/tex">\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}</script></span>, <span><span class="MathJax_Preview">\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}</span><script type="math/tex">\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}</script></span>), then the 1D OT is obtained by sorting the projections and computing the difference between the first projected points of <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> with the first projected points of <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span>, the second with the second, etc&hellip;</p>
+<p>$$ SW(\mu,\nu)^2 = \int_{S^d} \left(|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle| ^2\right) d\theta\,,$$
+(<span><span class="MathJax_Preview">\sigma_\theta(i)</span><script type="math/tex">\sigma_\theta(i)</script></span> a,d <span><span class="MathJax_Preview">{\kappa_\theta(i)}</span><script type="math/tex">{\kappa_\theta(i)}</script></span> are permutations with increasing order).</p>
+<p>Numerically, we sample the set of directions <span><span class="MathJax_Preview">S^d</span><script type="math/tex">S^d</script></span> and thus consider a finite number of <em>slices</em>.</p>
+<h2 id="sliced-ot-color-transfer">Sliced OT Color Transfer</h2>
+<p>Back to our histogram transfer problem, Diracs centers <span><span class="MathJax_Preview">\{x_i\}</span><script type="math/tex">\{x_i\}</script></span> are points in RGB space for all pixels of the input image, and  <span><span class="MathJax_Preview">\{y_i\}</span><script type="math/tex">\{y_i\}</script></span> are the colors of the target image. Matching the histogram consists can be seen a transportation of the point cloud <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> to <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span> in <span><span class="MathJax_Preview">\mathbb{R^3}</span><script type="math/tex">\mathbb{R^3}</script></span> (the RGB color space).</p>
+<p>The idea is to advect points of <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> such that the it minimizes <span><span class="MathJax_Preview">SW(\mu,\nu)</span><script type="math/tex">SW(\mu,\nu)</script></span>. As described in the literature<sup id="fnref2:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup><sup id="fnref2:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>, this amounts to project he points onto a random direction <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, <em>algin</em> the sorted projections and advect <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> in the <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> direction by <span><span class="MathJax_Preview">|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|</span><script type="math/tex">|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|</script></span>.</p>
+<p><img alt="" src="images/sliced.png" /></p>
+<p>and we iterate. Note that instead of advecting <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> for each <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, we can accumulate advection vectors into a small batch and perform the transport step  once the batch is full<sup id="fnref3:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>. For enough slices (see the code for the experiments), we end up with a retarged input image.</p>
+<p>Note that the transport plan can be regularized using a simple post-processing, <em>e.g.</em> a bilateral filter of the transportation (difference between the input image and the retargeted one) which is then applied to the input image<sup id="fnref4:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>.  </p>
+<h2 id="sliced-partial-optimal-transport">Sliced Partial Optimal Transport</h2>
+<p>The original sliced OT requires the measure to have the exact same number of Diracs (<span><span class="MathJax_Preview">e.g.</span><script type="math/tex">e.g.</script></span> input and target images must have the same size). When dealing with measures of different sizes, the combinatorial problem is more complex in the sense that we are not looking for a minimal cost bijective map between the Diracs, but an injective one. This problem is intensively discussed in the <a href="https://perso.liris.cnrs.fr/nicolas.bonneel/spot/">Sliced Partial Optimal Transport</a> paper<sup id="fnref2:b6"><a class="footnote-ref" href="#fn:b6">6</a></sup>.</p>
+<p><img alt="" src="images/partial.png" /></p>
+<p>In color matching applications such as that of [Pitié et al. 2005]<sup id="fnref3:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup>, matching all pixels of an input image (a) seen as 3D points in an RGB space to all pixels of a target image (b) can lead to erroneous transfers (c) due to mismatched content (here, trees of the target are not present in the input, and distort colors in the output).
+<img alt="" src="images/spot.png" /></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:b1">
+<p>Francois Pitié, Anil C. Kokaram, and Rozenn Dahyot. 2005. N-Dimensional Probablility Density Function Transfer and Its Application to Colour Transfer. In Proceedings of the Tenth IEEE International Conference on Computer Vision - Volume 2 (ICCV ’05). IEEE Computer Society, Washington, DC, USA, 1434–1439. https://doi.org/10.1109/ ICCV.2005.166&#160;<a class="footnote-backref" href="#fnref:b1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:b1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:b1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:b2">
+<p>François Pitié, Anil C Kokaram, and Rozenn Dahyot. 2007. Automated colour grading using colour distribution transfer. Computer Vision and Image Understanding 107, 1-2 (2007), 123–137.&#160;<a class="footnote-backref" href="#fnref:b2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:b3">
+<p>Nicolas Bonneel, Julien Rabin, G. Peyré, and Hanspeter Pfister. 2015. Sliced and Radon Wasserstein Barycenters of Measures. J. of Mathematical Imaging and Vision 51, 1 (2015).&#160;<a class="footnote-backref" href="#fnref:b3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:b4">
+<p>Julien Rabin, Julie Delon, and Yann Gousseau. 2010. Regularization of transportation maps for color and contrast transfer. In Image Processing (ICIP), 2010 17th IEEE International Conference on. IEEE, 1933–1936.&#160;<a class="footnote-backref" href="#fnref:b4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:b4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:b4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:b4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:b5">
+<p>Nicolas Bonneel, Kalyan Sunkavalli, Sylvain Paris, and Hanspeter Pfister. 2013. Example- Based Video Color Grading. ACM Trans. Graph. (SIGGRAPH) 32, 4 (2013).&#160;<a class="footnote-backref" href="#fnref:b5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:b6">
+<p>Nicolas Bonneel and David Coeurjolly. 2019. Sliced Partial Optimal Transport. ACM Trans. Graph. (SIGGRAPH) 38, 4 (2019).&#160;<a class="footnote-backref" href="#fnref:b6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:b6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 
@@ -306,13 +540,13 @@
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="original/" title="CPU - Balanced  version" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="original/" title="Color Transfer (CPU/Balanced)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                CPU - Balanced  version
+                Color Transfer (CPU/Balanced)
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

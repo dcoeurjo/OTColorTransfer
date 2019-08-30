@@ -36,7 +36,7 @@
     
     
       
-        <title>Color Transfer (CPU/Balanced) - Color Transfer via Sliced Optimal Transport</title>
+        <title>Color Transfer (CPU/Partial) - Color Transfer via Sliced Optimal Transport</title>
       
     
     
@@ -113,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Color Transfer (CPU/Balanced)
+                Color Transfer (CPU/Partial)
               
             </span>
           
@@ -234,6 +234,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../original/" title="Color Transfer (CPU/Balanced)" class="md-nav__link">
+      Color Transfer (CPU/Balanced)
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -245,11 +257,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Color Transfer (CPU/Balanced)
+        Color Transfer (CPU/Partial)
       </label>
     
-    <a href="./" title="Color Transfer (CPU/Balanced)" class="md-nav__link md-nav__link--active">
-      Color Transfer (CPU/Balanced)
+    <a href="./" title="Color Transfer (CPU/Partial)" class="md-nav__link md-nav__link--active">
+      Color Transfer (CPU/Partial)
     </a>
     
       
@@ -291,18 +303,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../partial/" title="Color Transfer (CPU/Partial)" class="md-nav__link">
-      Color Transfer (CPU/Partial)
-    </a>
   </li>
 
     
@@ -390,70 +390,15 @@
                 
                 <h1 id="sliced-ot-color-transfer-cpu-balanced">Sliced OT Color Transfer / CPU / Balanced</h1>
 <p>We discuss some technical details of the Sliced OT implementation in C++. The code use classical STL containers and algorithm,  <a href="https://github.com/nothings/stb">stb_image.h/stb_image_writer.h</a> for image IO and <a href="http://cimg.eu">Cimg</a> for the bilateral filter that can be used to regularize the output.</p>
+<p>The Sliced Partial Optimal Transport is computed using the optimized <a href="https://github.com/nbonneel/spot/">SPOT</a> code.</p>
 <div class="admonition code">
 <p class="admonition-title">Code</p>
-<p><code class="codehilite"><span class="n">colorTransfer</span><span class="p">.</span><span class="n">cpp</span></code></p>
+<p><code class="codehilite"><span class="n">colorTransferPartial</span><span class="p">.</span><span class="n">cpp</span></code></p>
 </div>
 <h2 id="code-comments">Code comments</h2>
-<p>First, to uniformly sample the set of directions <span><span class="MathJax_Preview">S^3</span><script type="math/tex">S^3</script></span>, we first create a (seeded) random Number generator following a centered normal distribution law.</p>
-<div class="codehilite"><pre><span></span><span class="c1">//Random generator init to draw random line directions</span>
-<span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">gen</span><span class="p">;</span>
-<span class="n">gen</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-<span class="n">std</span><span class="o">::</span><span class="n">normal_distribution</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">dist</span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">};</span>
-</pre></div>
-
-<p>Uniform directions are then selected by normalizing the three realizations of that random number generator<sup id="fnref:muller"><a class="footnote-ref" href="#fn:muller">1</a></sup>:</p>
-<div class="codehilite"><pre><span></span><span class="c1">//Random direction</span>
-<span class="kt">float</span> <span class="n">dirx</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">gen</span><span class="p">);</span>
-<span class="kt">float</span> <span class="n">diry</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">gen</span><span class="p">);</span>
-<span class="kt">float</span> <span class="n">dirz</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">gen</span><span class="p">);</span>
-<span class="kt">float</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dirx</span><span class="o">*</span><span class="n">dirx</span> <span class="o">+</span> <span class="n">diry</span><span class="o">*</span><span class="n">diry</span> <span class="o">+</span> <span class="n">dirz</span><span class="o">*</span><span class="n">dirz</span><span class="p">);</span>
-<span class="n">dirx</span> <span class="o">/=</span> <span class="n">norm</span><span class="p">;</span>
-<span class="n">diry</span> <span class="o">/=</span> <span class="n">norm</span><span class="p">;</span>
-<span class="n">dirz</span> <span class="o">/=</span> <span class="n">norm</span><span class="p">;</span>
-</pre></div>
-
-<p>Then, the core of the method consists in computing the projections:</p>
-<div class="codehilite"><pre><span></span><span class="c1">//We project the points</span>
- <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">projsource</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
- <span class="p">{</span>
-   <span class="n">projsource</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dirx</span> <span class="o">*</span> <span class="n">source</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">diry</span> <span class="o">*</span> <span class="n">source</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dirz</span> <span class="o">*</span> <span class="n">source</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>
-   <span class="n">projtarget</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dirx</span> <span class="o">*</span> <span class="n">target</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">diry</span> <span class="o">*</span> <span class="n">target</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dirz</span> <span class="o">*</span> <span class="n">target</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>
- <span class="p">}</span>
-</pre></div>
-
-<p>and sorting the id of the points according to their projection. Sorting the point sets is
-the bottleneck of the method. As the two sorts are independent, we can do them in parallel:</p>
-<p><div class="codehilite"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">threadA</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]{</span> <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">idSource</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">idSource</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">lambdaProjSource</span><span class="p">);</span> <span class="p">});</span>
-<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">idTarget</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">idTarget</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">lambdaProjTarget</span><span class="p">);</span>
-<span class="n">threadA</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</pre></div>
- 
-with the two lambdas</p>
-<div class="codehilite"><pre><span></span> <span class="c1">//Lambda expression for the comparison of points in RGB</span>
- <span class="c1">//according to their projections</span>
- <span class="k">auto</span> <span class="n">lambdaProjSource</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">projsource</span><span class="p">](</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">projsource</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">projsource</span><span class="p">[</span><span class="n">b</span><span class="p">];</span> <span class="p">};</span>
- <span class="k">auto</span> <span class="n">lambdaProjTarget</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">projtarget</span><span class="p">](</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">projtarget</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">projtarget</span><span class="p">[</span><span class="n">b</span><span class="p">];</span> <span class="p">};</span>
-</pre></div>
-
-<p>Then, advection vectors can be accumulated in a batch</p>
-<div class="codehilite"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idSource</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-     <span class="p">{</span>
-       <span class="k">auto</span> <span class="n">pix</span> <span class="o">=</span> <span class="n">idSource</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-       <span class="n">advect</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">pix</span><span class="p">]</span>   <span class="o">+=</span> <span class="n">dirx</span> <span class="o">*</span> <span class="p">(</span><span class="n">projtarget</span><span class="p">[</span><span class="n">idTarget</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">projsource</span><span class="p">[</span><span class="n">idSource</span><span class="p">[</span><span class="n">i</span><span class="p">]]);</span>
-       <span class="n">advect</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">pix</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">diry</span> <span class="o">*</span> <span class="p">(</span><span class="n">projtarget</span><span class="p">[</span><span class="n">idTarget</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">projsource</span><span class="p">[</span><span class="n">idSource</span><span class="p">[</span><span class="n">i</span><span class="p">]]);</span>
-       <span class="n">advect</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">pix</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dirz</span> <span class="o">*</span> <span class="p">(</span><span class="n">projtarget</span><span class="p">[</span><span class="n">idTarget</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">projsource</span><span class="p">[</span><span class="n">idSource</span><span class="p">[</span><span class="n">i</span><span class="p">]]);</span>
-     <span class="p">}</span>
-</pre></div>
-
-<p>Before being used to advect the source image points:</p>
-<div class="codehilite"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-  <span class="n">source</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">advect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">batchSize</span><span class="p">;</span>
-</pre></div>
-
 <h2 id="usage">Usage</h2>
-<div class="codehilite"><pre><span></span><span class="nv">colorTransfer</span>
-<span class="nv">Usage</span>: .<span class="o">/</span><span class="nv">colorTransfer</span> [<span class="nv">OPTIONS</span>]
+<div class="codehilite"><pre><span></span><span class="nv">colorTransferPartial</span>
+<span class="nv">Usage</span>: .<span class="o">/</span><span class="nv">colorTransferPartial</span> [<span class="nv">OPTIONS</span>]
 
 <span class="nv">Options</span>:
   <span class="o">-</span><span class="nv">h</span>,<span class="o">--</span><span class="nv">help</span>                   <span class="nv">Print</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
@@ -469,22 +414,22 @@ with the two lambdas</p>
 </pre></div>
 
 <h2 id="timings">Timings</h2>
-<p>100 slices, default parameters, no regularization (3,5 GHz 6-Core Intel Xeon E5).</p>
-<div class="codehilite"><pre><span></span><span class="p">.</span><span class="o">/</span><span class="n">colorTransfer</span> <span class="o">-</span><span class="n">s</span> <span class="n">pexelA</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">t</span> <span class="n">pexelB</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">o</span> <span class="k">output</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="c1">--silent</span>
+<p>100 slices, default parameters, no regularization, same image size (3,5 GHz 6-Core Intel Xeon E5). When considering images with same size, the code has an overhead compared to the CPU/Balanced code.</p>
+<div class="codehilite"><pre><span></span><span class="p">.</span><span class="o">/</span><span class="n">colorTransferPartial</span> <span class="o">-</span><span class="n">s</span> <span class="n">pexelA</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">t</span> <span class="n">pexelB</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">o</span> <span class="k">output</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="c1">--silent</span>
 <span class="k">Source</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1280</span><span class="n">x1024</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">Target</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1280</span><span class="n">x1024</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="p">...</span>
-<span class="n">elapsed</span> <span class="n">time</span><span class="p">:</span> <span class="mi">14</span><span class="p">.</span><span class="mi">5373</span><span class="n">s</span>
+<span class="n">elapsed</span> <span class="n">time</span><span class="p">:</span> <span class="mi">34</span><span class="p">.</span><span class="mi">1797</span><span class="n">s</span>
 </pre></div>
 
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:muller">
-<p>Muller, M. E. &ldquo;A Note on a Method for Generating Points Uniformly on N-Dimensional Spheres.&rdquo; Comm. Assoc. Comput. Mach. 2, 19-20, Apr. 1959.&#160;<a class="footnote-backref" href="#fnref:muller" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>
+<p>When we increase the size of the target image to reproduce the results of <a href="https://perso.liris.cnrs.fr/nicolas.bonneel/spot/">Sliced Partial Optimal Transport</a>:
+<div class="codehilite"><pre><span></span><span class="p">.</span><span class="o">/</span><span class="n">colorTransferPartial</span> <span class="o">-</span><span class="n">s</span> <span class="n">pexelA</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">t</span> <span class="n">pexelB</span><span class="o">-</span><span class="mi">0</span><span class="o">-</span><span class="n">larger</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">o</span> <span class="k">output</span><span class="o">-</span><span class="k">partial</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span>
+<span class="k">Source</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1280</span><span class="n">x1024</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Target</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1536</span><span class="n">x1229</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">finished</span> <span class="n">computation</span> <span class="k">at</span> <span class="n">Fri</span> <span class="n">Aug</span> <span class="mi">30</span> <span class="mi">13</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mi">11</span> <span class="mi">2019</span>
+<span class="n">elapsed</span> <span class="n">time</span><span class="p">:</span> <span class="mi">33</span><span class="p">.</span><span class="mi">4571</span><span class="n">s</span>
+<span class="n">Exporting</span><span class="p">..</span>
+</pre></div></p>
                 
                   
                 
@@ -505,7 +450,7 @@ with the two lambdas</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="Intro" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../original/" title="Color Transfer (CPU/Balanced)" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -514,19 +459,19 @@ with the two lambdas</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Intro
+                Color Transfer (CPU/Balanced)
               </span>
             </div>
           </a>
         
         
-          <a href="../partial/" title="Color Transfer (CPU/Partial)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../todo/" title="Color Transfer (GPU/Balanced)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Color Transfer (CPU/Partial)
+                Color Transfer (GPU/Balanced)
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

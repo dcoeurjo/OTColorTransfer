@@ -1,0 +1,47 @@
+site_name: Color Transfer via Sliced Optimal Transport
+markdown_extensions:
+  - codehilite
+  - attr_list
+  - admonition
+  - footnotes
+  - markdown.extensions.footnotes
+  - markdown.extensions.smarty
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.arithmatex
+  - pymdownx.emoji
+
+extra:
+  search:
+    tokenizer: '[\s\-\.::]+'
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'light-green'
+    accent: 'deep orange'
+  font:
+    text: 'PT Serif'
+    code: 'Inconsolata'
+
+extra_css:
+  - extras.css
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
+repo_name: 'dcoeurjo/OTColorTransfer'
+repo_url: 'https://github.com/dcoeurjo/OTColorTransfer'
+edit_uri: ''
+
+
+docs_dir: 'docs-source'
+site_dir: 'docs'
+
+nav:
+  - Intro: 'index.md'
+  - Color Transfer (CPU/Balanced): 'original.md'
+  - Color Transfer (CPU/Partial): 'partial.md'
+  - Color Transfer (GPU/Balanced): 'todo.md'
+  - License: 'license.md'

@@ -1,10 +1,37 @@
+/*
+ Copyright (c) 2019 CNRS
+ David Coeurjolly <david.coeurjolly@liris.cnrs.fr>
+ 
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 
+ 1. Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ 
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIEDi
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 #include <iostream>
 #include <string>
 #include <random>
 #include <vector>
 #include <chrono>
 #include <ctime>
-
+#include <thread>
 //Command-line parsing
 #include "CLI11.hpp"
 
@@ -27,9 +54,8 @@ void slicedTransfer(std::vector<float> &source,
   //Random generator init to draw random line directions
   std::mt19937 gen;
   gen.seed(10);
-  
   std::normal_distribution<float> dist{0.0,1.0};
- 
+  
   auto N = source.size()/3;
   
   //Advection vector
@@ -56,7 +82,7 @@ void slicedTransfer(std::vector<float> &source,
   
   for(auto step =0 ; step < nbSteps; ++step)
   {
-   for(auto batch = 0; batch < batchSize; ++batch )
+    for(auto batch = 0; batch < batchSize; ++batch )
     {
       //Random direction
       float dirx = dist(gen);
@@ -76,8 +102,10 @@ void slicedTransfer(std::vector<float> &source,
       }
       
       //1D optimal transport of the projections with two sorts
-      std::sort(idSource.begin(), idSource.end(), lambdaProjSource);
+      std::thread threadA([&]{ std::sort(idSource.begin(), idSource.end(), lambdaProjSource); });
       std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
+      
+      threadA.join();
       
       //We accumulate the displacements in a batch
       for(auto i = 0; i < idSource.size(); ++i)
@@ -150,14 +178,14 @@ int main(int argc, char **argv)
   
   //Main computation
   auto start = std::chrono::system_clock::now();
-
+  
   slicedTransfer(sourcefloat, targetfloat, nbSteps, batchSize);
-
+  
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double> elapsed_seconds = end - start;
   std::time_t end_time = std::chrono::system_clock::to_time_t(end);
   std::cout << "finished computation at " << std::ctime(&end_time)
-            << "elapsed time: " << elapsed_seconds.count() << "s\n";
+  << "elapsed time: " << elapsed_seconds.count() << "s\n";
   
   //Output
   std::vector<unsigned char> output(width*height*nbChannels);
@@ -174,7 +202,7 @@ int main(int argc, char **argv)
       transport[i+2*width*height] = sourcefloat[3*i+2] - static_cast<float>(source[3*i+2]);
     }
     transport.blur_bilateral(transport, sigmaXY,sigmaV);
-  
+    
     auto output2(output);
     for(auto i = 0 ; i < width*height ; ++i)
     {
