@@ -3,7 +3,7 @@
 
 We discuss some technical details of the Sliced OT implementation in C++. The code use classical STL containers and algorithm,  [stb_image.h/stb_image_writer.h](https://github.com/nothings/stb) for image IO and [Cimg](http://cimg.eu) for the bilateral filter that can be used to regularize the output.
 
-The Sliced Partial Optimal Transport is computed using the optimized [SPOT](https://github.com/nbonneel/spot/) code.
+The Sliced Partial Optimal Transport is computed using the optimized [SPOT](https://github.com/nbonneel/spot/) code ([Nicolas Bonneel](https://perso.liris.cnrs.fr/nicolas.bonneel/), [David Coeurjolly](https://perso.liris.cnrs.fr/david.coeurjolly/)).
 
 !!! code
     `colorTransferPartial.cpp`
