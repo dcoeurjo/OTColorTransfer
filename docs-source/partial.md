@@ -38,6 +38,9 @@ Target image: 1280x1024   (3)
 elapsed time: 34.1797s
 ```
 
+![](images/output2.png)
+
+
 When we increase the size of the target image to reproduce the results of [Sliced Partial Optimal Transport](https://perso.liris.cnrs.fr/nicolas.bonneel/spot/):
 ```
 ./colorTransferPartial -s pexelA-0.png -t pexelB-0-larger.png -o output-partial.png -n 100
@@ -47,3 +50,5 @@ finished computation at Fri Aug 30 13:25:11 2019
 elapsed time: 33.4571s
 Exporting..
 ```
+
+![](images/output-partial.png)
