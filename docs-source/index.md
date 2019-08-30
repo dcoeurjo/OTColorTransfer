@@ -64,7 +64,7 @@ $$ SW(\mu,\nu)^2 := \int_{S^d} \mathcal{W}_2( P_{\theta,\sharp}\mu,P_{\theta,\sh
 
 The sliced formulation consists in projecting the measures onto a 1D line ($P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}$), solving the 1D OT problem on the projections and average the results for all directions ($S^d$ is the unit hypersphere in dimension $d$).
 
-If the measures are discrete as sum of Diracs centered at points $\{x_i\}$ and $\{y_i\}$ in $\mathbb{R}^d$ ($\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}$, $\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}$), then the 1D OT is obtained by sorting the projections and computing the difference between the first projected points of $\mu$ with the first projected points of $\nu$, the second with the second, etc...
+If the measures are discrete as sum of Diracs centered at points $\{x_i\}$ and $\{y_i\}$ in $\mathbb{R}^d$ ($\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}$, $\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}$), then the 1D OT is obtained by sorting the projections and computing the difference between the first projected point of $\mu$ with the first projected point of $\nu$, the second with the second, etc...
 
 $$ SW(\mu,\nu)^2 = \int_{S^d} \left(|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle| ^2\right) d\theta\,,$$
 ($\sigma_\theta(i)$ a,d ${\kappa_\theta(i)}$ are permutations with increasing order).
