@@ -82,7 +82,7 @@ The idea is to advect points of $\mu$ such that we minimize $SW(\mu,\nu)$. As de
 
 and we iterate. Note that instead of advecting $\mu$ for each $\theta$, we can accumulate advection vectors into a small batch and perform the transport step  once the batch is full[^b4]. For enough slices (see the code for the experiments), we end up with a retarged input image. If $K$ denotes the number of slices, the overall computational cost of the approach in dimension $d$ is in $O(d\,K\, N\log N)$.
 
-Note that the transport plan can be regularized using a simple post-processing, *e.g.* a bilateral filter of the transportation (difference between the input image and the retargeted one) which is then applied to the input image[^b4].  
+Note that the transport plan can be regularized using a simple post-processing, *e.g.* a bilateral filter of the transportation map (difference between the input image and the retargeted one) which is then applied to the input image[^b4].  
 
 ## Sliced Partial Optimal Transport
 
