@@ -40,7 +40,7 @@ docs_dir: 'docs-source'
 site_dir: 'docs'
 
 nav:
-  - Intro: 'index.md'
+  - Introduction: 'index.md'
   - Color Transfer (CPU/Balanced): 'original.md'
   - Color Transfer (CPU/Partial): 'partial.md'
   - Color Transfer (GPU/Balanced): 'todo.md'
