@@ -1,5 +1,4 @@
 # Color Transfer via Sliced Optimal Transport
-David Coeurjolly
 
 ## Introduction
 
