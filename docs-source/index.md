@@ -75,7 +75,7 @@ Numerically, we sample the set of directions $S^d$ and thus consider a finite nu
 
 Back to our histogram transfer problem, Diracs centers $\{x_i\}$ are points in RGB space (one Dirac per pixel of the input image), and  $\{y_i\}$ are the colors of the target image. Matching the histogram  can be seen a transportation of the point cloud $\mu$ to $\nu$ in $\mathbb{R^3}$ (the RGB color space).
 
-The idea is to advect points of $\mu$ such that we minimize $SW(\mu,\nu)$. As described in the literature[^b1][^b4], this amounts to project he points onto a random direction $\theta$, *algin* the sorted projections and advect $\mu$ in the $\theta$ direction by $|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|$.
+The idea is to advect points of $\mu$ such that we minimize $SW(\mu,\nu)$. As described in the literature[^b1][^b4], this amounts to project he points onto a random direction $\theta$, *align* the sorted projections and advect $\mu$ in the $\theta$ direction by $|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|$.
 
 
 ![](images/sliced.png)
