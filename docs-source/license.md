@@ -28,9 +28,9 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 ```
- 
+
 The Sliced Partial Optimal Transport [SPOT](https://github.com/nbonneel/spot/) code follows
- the same license.
+ a similar license ([Nicolas Bonneel](https://perso.liris.cnrs.fr/nicolas.bonneel/), [David Coeurjolly](https://perso.liris.cnrs.fr/david.coeurjolly/)).
 
 
 [stb_image.h/stb_image_writer.h](https://github.com/nothings/stb) are public domain.
