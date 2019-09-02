@@ -6,10 +6,7 @@ on: [push]
 jobs:
   test:
 
-    runs-on: ${{ matrix.os }}
-      strategy:
-        matrix:
-           os: [ubuntu-latest, macOS-latest]
+    runs-on: ubuntu-latest
   
     steps:
       - uses: actions/checkout@v1
