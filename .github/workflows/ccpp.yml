@@ -4,16 +4,16 @@ on: [push]
 
 
 jobs:
-  build:
+  test:
 
-  runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest]
+    runs-on: ${{ matrix.os }}
+      strategy:
+        matrix:
+           os: [ubuntu-latest, macOS-latest]
   
-  steps:
-    - uses: actions/checkout@v1
-    - name: cmake
-      run: mkdir build; cd build ; cmake  ..
-    - name: make
-      run: cd build; make
+    steps:
+      - uses: actions/checkout@v1
+      - name: cmake
+        run: mkdir build; cd build ; cmake  ..
+      - name: make
+        run: cd build; make
