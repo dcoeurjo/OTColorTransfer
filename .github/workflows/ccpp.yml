@@ -2,7 +2,6 @@ name: C/C++ CI
 
 on: [push]
 
-
 jobs:
   test:
     name: Building the examples on ${{ matrix.os }}
