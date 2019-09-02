@@ -18,5 +18,4 @@ jobs:
         if: matrix.os == 'ubuntu-latest' 
         run: mkdir build; cd build ; cmake  ..
       - name: make
-        if: matrix.os == 'ubuntu-latest' 
         run: cd build; make
