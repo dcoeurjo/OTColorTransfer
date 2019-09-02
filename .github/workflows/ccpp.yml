@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest,macOS-latest]
+
     steps:
       - uses: actions/checkout@v1
       - name: cmake macos
