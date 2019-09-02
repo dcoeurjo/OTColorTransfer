@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: cmake
+        if: matrix.os == 'macOS-latest' 
+        run: mkdir build; cd build ; echo "MAC"
+        if: matrix.os == 'ubuntu-latest' 
         run: mkdir build; cd build ; cmake  ..
       - name: make
         run: cd build; make
