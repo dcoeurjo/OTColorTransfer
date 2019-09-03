@@ -1,4 +1,9 @@
 
+
+[David Coeurjolly](https://perso.liris.cnrs.fr/david.coeurjolly/)),
+CNRS, Université de Lyon, LIRIS.
+
+
 ```
 /*
  Copyright (c) 2019 CNRS
