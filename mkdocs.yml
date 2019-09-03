@@ -19,7 +19,7 @@ extra:
 theme:
   name: 'material'
   palette:
-    primary: 'blue-grey'
+    primary: 'light-green'
     accent: 'deep orange'
   font:
     text: 'PT Serif'
