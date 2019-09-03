@@ -19,7 +19,7 @@ extra:
 theme:
   name: 'material'
   palette:
-    primary: 'light-green'
+    primary: 'blue-grey'
     accent: 'deep orange'
   font:
     text: 'PT Serif'
@@ -44,5 +44,5 @@ nav:
   - Color Transfer (CPU/Balanced): 'original.md'
   - Color Transfer (CPU/Partial): 'partial.md'
   - Color Transfer (GPU/Balanced): 'todo.md'
-  - Author/License: 'license.md'
+  - Author/        License: 'license.md'
   - Changelog: 'Changelog.md'
