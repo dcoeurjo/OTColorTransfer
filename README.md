@@ -2,4 +2,4 @@
 
 website : [https://dcoeurjo.github.io/OTColorTransfer/](https://dcoeurjo.github.io/OTColorTransfer/)
 
-@David Coeurjolly, CNRS, Université de Lyon, LIRIS
+@[David Coeurjolly](https://perso.liris.cnrs.fr/david.coeurjolly/), CNRS, Université de Lyon, LIRIS
