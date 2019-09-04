@@ -106,7 +106,6 @@ void slicedTransfer(std::vector<float> &source,
       std::thread threadA([&]{ std::sort(idSource.begin(), idSource.end(), lambdaProjSource); });
       std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
       threadA.join();
-
       
       //We accumulate the displacements in a batch
       for(auto i = 0; i < idSource.size(); ++i)
