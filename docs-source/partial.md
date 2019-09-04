@@ -47,7 +47,7 @@ When we increase the size of the target image to reproduce the results of [Slice
 Source image: 1280x1024   (3)
 Target image: 1536x1229   (3)
 finished computation at Fri Aug 30 13:25:11 2019
-elapsed time: 33.4571s
+elapsed time: 23.2826s
 Exporting..
 ```
 

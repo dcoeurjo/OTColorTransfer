@@ -44,5 +44,5 @@ nav:
   - Color Transfer (CPU/Balanced): 'original.md'
   - Color Transfer (CPU/Partial): 'partial.md'
   - Color Transfer (GPU/Balanced): 'todo.md'
-  - License: 'license.md'
+  - Author/        License: 'license.md'
   - Changelog: 'Changelog.md'

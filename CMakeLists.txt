@@ -24,6 +24,7 @@ set(EXAMPLES
 foreach(EXAMPLE ${EXAMPLES})
     add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
     target_link_libraries(${EXAMPLE} spot)
+    target_link_libraries(${EXAMPLE} OpenMP::OpenMP_CXX)
     if(UNIX)
       target_link_libraries(${EXAMPLE} -lpthread -lm)
     endif()
