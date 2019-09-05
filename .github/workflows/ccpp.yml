@@ -17,7 +17,7 @@ jobs:
         run: brew install libomp && mkdir build && cd build && cmake .. -DOpenMP_C_LIB_NAMES="omp" -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include" -DOpenMP_CXX_LIB_NAMES="omp" -DOpenMP_omp_LIBRARY=/usr/local/opt/libomp/lib/libomp.dylib -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include"
       - name: cmake win
         if: matrix.os == 'windows-latest' 
-        run: cmake --help ; cmake -G "Visual Studio 15 2017"
+        run: cmake --help 
       - name: cmake linux
         if: matrix.os == 'ubuntu-latest' 
         run: mkdir build; cd build ; cmake  ..
