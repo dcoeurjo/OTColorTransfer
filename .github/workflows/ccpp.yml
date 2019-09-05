@@ -23,7 +23,7 @@ jobs:
         run: mkdir build; cd build ; cmake  ..
       - name: make win
         if: matrix.os == 'windows-latest' 
-        run: msbuild DGtal.sln
+        run: dir 
       - name: make (linux/macos)
         if: matrix.os != 'windows-latest'
         run: cd build; make
