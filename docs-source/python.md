@@ -1,7 +1,7 @@
 # Sliced OT Color Transfer / Python exampe
 
 Here you have a [python implementation](https://github.com/dcoeurjo/OTColorTransfer/issues/2) by
-[@iperov](https://github.com/iperov). This code also illustrates the
+[@iperov](https://github.com/iperov) (thanks!). This code also illustrates the
 sliced OT color transfer in Lab color space. This code requires numpy
 and opencv python packages.
 
