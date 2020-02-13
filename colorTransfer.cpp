@@ -101,24 +101,10 @@ void slicedTransfer(std::vector<float> &source,
         projtarget[i] = dirx * target[3*i] + diry * target[3*i+1] + dirz * target[3*i+2];
       }
       
-      
-//      std::sort(idSource.begin(), idSource.end(), lambdaProjSource);
-//      std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
-//
       //1D optimal transport of the projections with two sorts
-//      std::thread threadA([&]{ std::sort(idSource.begin(), idSource.end(), lambdaProjSource); });
-//      std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
-//      threadA.join();
-
-#pragma omp parallel sections
-      {
-#pragma omp section
-        std::sort(idSource.begin(), idSource.end(), lambdaProjSource);
-#pragma omp section
-        std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
-
-      }
-      
+      std::thread threadA([&]{ std::sort(idSource.begin(), idSource.end(), lambdaProjSource); });
+      std::sort(idTarget.begin(), idTarget.end(), lambdaProjTarget);
+      threadA.join();
       
       //We accumulate the displacements in a batch
       for(auto i = 0; i < idSource.size(); ++i)

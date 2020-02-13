@@ -36,7 +36,7 @@
     
     
       
-        <title>Color Transfer (CPU/Partial) - Color Transfer via Sliced Optimal Transport</title>
+        <title>Python example code - Color Transfer via Sliced Optimal Transport</title>
       
     
     
@@ -87,7 +87,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#sliced-ot-color-transfer-cpu-balanced" tabindex="1" class="md-skip">
+      <a href="#sliced-ot-color-transfer-python-exampe" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -113,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Color Transfer (CPU/Partial)
+                Python example code
               
             </span>
           
@@ -246,63 +246,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Color Transfer (CPU/Partial)
-      </label>
-    
-    <a href="./" title="Color Transfer (CPU/Partial)" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../partial/" title="Color Transfer (CPU/Partial)" class="md-nav__link">
       Color Transfer (CPU/Partial)
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#code-comments" title="Code comments" class="md-nav__link">
-    Code comments
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timings" title="Timings" class="md-nav__link">
-    Timings
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -322,11 +270,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../python/" title="Python example code" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Python example code" class="md-nav__link md-nav__link--active">
       Python example code
     </a>
+    
   </li>
 
     
@@ -383,36 +340,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#code-comments" title="Code comments" class="md-nav__link">
-    Code comments
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timings" title="Timings" class="md-nav__link">
-    Timings
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -424,49 +351,64 @@
               
                 
                 
-                <h1 id="sliced-ot-color-transfer-cpu-balanced">Sliced OT Color Transfer / CPU / Balanced</h1>
-<p>We discuss now about the Sliced Partial Optimal Transport case. For that, let us use to the optimized <a href="https://github.com/nbonneel/spot/">SPOT</a> code (<a href="https://perso.liris.cnrs.fr/nicolas.bonneel/">Nicolas Bonneel</a>, <a href="https://perso.liris.cnrs.fr/david.coeurjolly/">David Coeurjolly</a>).</p>
-<div class="admonition code">
-<p class="admonition-title">Code</p>
-<p><code class="codehilite"><span class="n">colorTransferPartial</span><span class="p">.</span><span class="n">cpp</span></code></p>
-</div>
-<h2 id="code-comments">Code comments</h2>
-<h2 id="usage">Usage</h2>
-<div class="codehilite"><pre><span></span><span class="nv">colorTransferPartial</span>
-<span class="nv">Usage</span>: .<span class="o">/</span><span class="nv">colorTransferPartial</span> [<span class="nv">OPTIONS</span>]
+                <h1 id="sliced-ot-color-transfer-python-exampe">Sliced OT Color Transfer / Python exampe</h1>
+<p>Here you have a <a href="https://github.com/dcoeurjo/OTColorTransfer/issues/2">python implementation</a> by
+<a href="https://github.com/iperov">@iperov</a> (thanks!). This code also illustrates the
+sliced OT color transfer in Lab color space. This code requires numpy
+and opencv python packages.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">npla</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="k">def</span> <span class="nf">CTSOT</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">trg</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">reg_sigmaXY</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span> <span class="n">reg_sigmaV</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Color Transform via Sliced Optimal Transfer, ported by @iperov</span>
 
-<span class="nv">Options</span>:
-  <span class="o">-</span><span class="nv">h</span>,<span class="o">--</span><span class="nv">help</span>                   <span class="nv">Print</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
-  <span class="o">-</span><span class="nv">s</span>,<span class="o">--</span><span class="nv">source</span> <span class="nv">TEXT</span>            <span class="nv">Source</span> <span class="nv">image</span>
-  <span class="o">-</span><span class="nv">t</span>,<span class="o">--</span><span class="nv">target</span> <span class="nv">TEXT</span>            <span class="nv">Target</span> <span class="nv">image</span>
-  <span class="o">-</span><span class="nv">o</span>,<span class="o">--</span><span class="nv">output</span> <span class="nv">TEXT</span>            <span class="nv">Output</span> <span class="nv">image</span>
-  <span class="o">-</span><span class="nv">n</span>,<span class="o">--</span><span class="nv">nbsteps</span> <span class="nv">UINT</span>           <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">sliced</span> <span class="nv">steps</span> <span class="ss">(</span><span class="mi">3</span><span class="ss">)</span>
-  <span class="o">-</span><span class="nv">b</span>,<span class="o">--</span><span class="nv">sizeBatch</span> <span class="nv">UINT</span>         <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">dirtections</span> <span class="nv">on</span> <span class="nv">a</span> <span class="nv">batch</span> <span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
-  <span class="o">-</span><span class="nv">r</span>,<span class="o">--</span><span class="nv">regularization</span>         <span class="nv">Apply</span> <span class="nv">a</span> <span class="nv">regularization</span> <span class="nv">step</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">transport</span> <span class="nv">plan</span> <span class="nv">using</span> <span class="nv">bilateral</span> <span class="nv">filter</span> <span class="ss">(</span><span class="nv">false</span><span class="ss">)</span>.
-  <span class="o">--</span><span class="nv">sigmaXY</span> <span class="nv">FLOAT</span>             <span class="nv">Sigma</span> <span class="nv">parameter</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">spatial</span> <span class="nv">domain</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">bilateral</span> <span class="nv">regularization</span> <span class="ss">(</span><span class="mi">16</span>.<span class="mi">0</span><span class="ss">)</span>
-  <span class="o">--</span><span class="nv">sigmaV</span> <span class="nv">FLOAT</span>              <span class="nv">Sigma</span> <span class="nv">parameter</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">domain</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">bilateral</span> <span class="nv">regularization</span> <span class="ss">(</span><span class="mi">5</span>.<span class="mi">0</span><span class="ss">)</span>
-  <span class="o">--</span><span class="nv">silent</span>                    <span class="nv">No</span> <span class="nv">verbose</span> <span class="nv">messages</span>
+<span class="sd">    src         - any float range any channel image</span>
+<span class="sd">    dst         - any float range any channel image, same shape as src</span>
+<span class="sd">    steps       - number of solver steps</span>
+<span class="sd">    batch_size  - solver batch size</span>
+<span class="sd">    reg_sigmaXY - apply regularization and sigmaXY of filter, otherwise set to 0.0</span>
+<span class="sd">    reg_sigmaV  - sigmaV of filter</span>
+
+<span class="sd">    return value - clip it manually</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;src value must be float&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">trg</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;trg value must be float&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;src shape must have rank 3 (h,w,c)&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">src</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">trg</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;src and trg shapes must be equal&quot;</span><span class="p">)</span>    
+
+    <span class="n">src_dtype</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">dtype</span>        
+    <span class="n">h</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">new_src</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+        <span class="n">advect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span> <span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">w</span><span class="p">,</span><span class="n">c</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">src_dtype</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+            <span class="nb">dir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">src_dtype</span><span class="p">)</span>
+            <span class="nb">dir</span> <span class="o">/=</span> <span class="n">npla</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+
+            <span class="n">projsource</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">new_src</span><span class="o">*</span><span class="nb">dir</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span> <span class="p">((</span><span class="n">h</span><span class="o">*</span><span class="n">w</span><span class="p">))</span>
+            <span class="n">projtarget</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">trg</span><span class="o">*</span><span class="nb">dir</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span> <span class="p">((</span><span class="n">h</span><span class="o">*</span><span class="n">w</span><span class="p">))</span>
+
+            <span class="n">idSource</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span> <span class="p">(</span><span class="n">projsource</span><span class="p">)</span>
+            <span class="n">idTarget</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span> <span class="p">(</span><span class="n">projtarget</span><span class="p">)</span>
+
+            <span class="n">a</span> <span class="o">=</span> <span class="n">projtarget</span><span class="p">[</span><span class="n">idTarget</span><span class="p">]</span><span class="o">-</span><span class="n">projsource</span><span class="p">[</span><span class="n">idSource</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i_c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+                <span class="n">advect</span><span class="p">[</span><span class="n">idSource</span><span class="p">,</span><span class="n">i_c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span> <span class="o">*</span> <span class="nb">dir</span><span class="p">[</span><span class="n">i_c</span><span class="p">]</span>
+        <span class="n">new_src</span> <span class="o">+=</span> <span class="n">advect</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span> <span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span> <span class="o">/</span> <span class="n">batch_size</span>
+
+    <span class="k">if</span> <span class="n">reg_sigmaXY</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">src_diff</span> <span class="o">=</span> <span class="n">new_src</span><span class="o">-</span><span class="n">src</span>
+        <span class="n">new_src</span> <span class="o">=</span> <span class="n">src</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bilateralFilter</span> <span class="p">(</span><span class="n">src_diff</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">reg_sigmaV</span><span class="p">,</span> <span class="n">reg_sigmaXY</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_src</span>
 </pre></div>
-
-<h2 id="timings">Timings</h2>
-<p>100 slices, default parameters, no regularization, same image size (3,5 GHz 6-Core Intel Xeon E5). When considering images with same size, the code has an overhead compared to the CPU/Balanced code.</p>
-<div class="codehilite"><pre><span></span><span class="p">.</span><span class="o">/</span><span class="n">colorTransferPartial</span> <span class="o">-</span><span class="n">s</span> <span class="n">pexelA</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">t</span> <span class="n">pexelB</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">o</span> <span class="k">output</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="c1">--silent</span>
-<span class="k">Source</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1280</span><span class="n">x1024</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">Target</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1280</span><span class="n">x1024</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="p">...</span>
-<span class="n">elapsed</span> <span class="n">time</span><span class="p">:</span> <span class="mi">34</span><span class="p">.</span><span class="mi">1797</span><span class="n">s</span>
-</pre></div>
-
-<p><img alt="" src="../images/output2.png" /></p>
-<p>When we increase the size of the target image to reproduce the results of <a href="https://perso.liris.cnrs.fr/nicolas.bonneel/spot/">Sliced Partial Optimal Transport</a>:
-<div class="codehilite"><pre><span></span><span class="p">.</span><span class="o">/</span><span class="n">colorTransferPartial</span> <span class="o">-</span><span class="n">s</span> <span class="n">pexelA</span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">t</span> <span class="n">pexelB</span><span class="o">-</span><span class="mi">0</span><span class="o">-</span><span class="n">larger</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">o</span> <span class="k">output</span><span class="o">-</span><span class="k">partial</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span>
-<span class="k">Source</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1280</span><span class="n">x1024</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">Target</span> <span class="n">image</span><span class="p">:</span> <span class="mi">1536</span><span class="n">x1229</span>   <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">finished</span> <span class="n">computation</span> <span class="k">at</span> <span class="n">Fri</span> <span class="n">Aug</span> <span class="mi">30</span> <span class="mi">13</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mi">11</span> <span class="mi">2019</span>
-<span class="n">elapsed</span> <span class="n">time</span><span class="p">:</span> <span class="mi">23</span><span class="p">.</span><span class="mi">2826</span><span class="n">s</span>
-<span class="n">Exporting</span><span class="p">..</span>
-</pre></div></p>
-<p><img alt="" src="../images/output-partial.png" /></p>
                 
                   
                 
@@ -487,7 +429,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../original/" title="Color Transfer (CPU/Balanced)" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../todo/" title="Color Transfer (GPU/Balanced)" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -496,19 +438,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Color Transfer (CPU/Balanced)
+                Color Transfer (GPU/Balanced)
               </span>
             </div>
           </a>
         
         
-          <a href="../todo/" title="Color Transfer (GPU/Balanced)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../license/" title="Author/        License" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Color Transfer (GPU/Balanced)
+                Author/        License
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
