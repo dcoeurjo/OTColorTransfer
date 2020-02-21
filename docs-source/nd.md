@@ -7,7 +7,7 @@ transfer is straightforward.
     `ndTransfer.cpp`
 
 
-The data format is a ASCII file with the following structure:
+The I/O is an ASCII file with the following structure (one line per "pixel", scalars in column):
 
 ```
 i j a b c d e ...
