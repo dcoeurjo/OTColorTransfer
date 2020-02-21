@@ -32,6 +32,7 @@ target_link_libraries(spot PUBLIC OpenMP::OpenMP_CXX)
 set(EXAMPLES
   colorTransfer
   colorTransferPartial
+  ndTransfer
 )
 
 foreach(EXAMPLE ${EXAMPLES})
