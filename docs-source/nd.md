@@ -7,7 +7,7 @@ transfer is straightforward.
     `ndTransfer.cpp`
 
 
-The I/O is an ASCII file with the following structure (one line per "pixel", scalars in column):
+The I/O is an ASCII file with the following structure (one line per "pixel", scalars in column, same number of scalars, aka same dimension, for all points):
 
 ```
 i j a b c d e ...
