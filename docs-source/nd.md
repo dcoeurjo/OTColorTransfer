@@ -13,5 +13,6 @@ The I/O is an ASCII file with the following structure (one line per "pixel", sca
 i j a b c d e ...
 ....
 ```
+
 with $i,j\in\mathbb{Z}$ and the remaining values are in $[0,1)^d$. The $(i,j)$ values
 are only used for the per channel bilateral filter to regularize the transport plan.

@@ -371,10 +371,11 @@ transfer is straightforward.</p>
 <p><code class="codehilite"><span class="n">ndTransfer</span><span class="p">.</span><span class="n">cpp</span></code></p>
 </div>
 <p>The I/O is an ASCII file with the following structure (one line per &ldquo;pixel&rdquo;, scalars in column):</p>
-<p><div class="codehilite"><pre><span></span><span class="n">i</span> <span class="n">j</span> <span class="n">a</span> <span class="n">b</span> <span class="k">c</span> <span class="n">d</span> <span class="n">e</span> <span class="p">...</span>
+<div class="codehilite"><pre><span></span><span class="n">i</span> <span class="n">j</span> <span class="n">a</span> <span class="n">b</span> <span class="k">c</span> <span class="n">d</span> <span class="n">e</span> <span class="p">...</span>
 <span class="p">....</span>
 </pre></div>
-with <span><span class="MathJax_Preview">i,j\in\mathbb{Z}</span><script type="math/tex">i,j\in\mathbb{Z}</script></span> and the remaining values are in <span><span class="MathJax_Preview">[0,1)^d</span><script type="math/tex">[0,1)^d</script></span>. The <span><span class="MathJax_Preview">(i,j)</span><script type="math/tex">(i,j)</script></span> values
+
+<p>with <span><span class="MathJax_Preview">i,j\in\mathbb{Z}</span><script type="math/tex">i,j\in\mathbb{Z}</script></span> and the remaining values are in <span><span class="MathJax_Preview">[0,1)^d</span><script type="math/tex">[0,1)^d</script></span>. The <span><span class="MathJax_Preview">(i,j)</span><script type="math/tex">(i,j)</script></span> values
 are only used for the per channel bilateral filter to regularize the transport plan.</p>
                 
                   
