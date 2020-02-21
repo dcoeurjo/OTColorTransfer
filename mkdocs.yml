@@ -46,6 +46,6 @@ nav:
   - nD Transfer (CPU): 'nd.md'
   - Color Transfer (GPU/Balanced): 'todo.md'
   - Python example code: 'python.md'
-  - Author/        License: 'license.md'
+  - Author/License: 'license.md'
   - Changelog: 'Changelog.md'
   - Contributing: 'Contributing.md'
