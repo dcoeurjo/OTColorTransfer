@@ -17,7 +17,7 @@ extra:
     tokenizer: '[\s\-\.::]+'
 
 theme:
-  name: 'material'
+  name: material
   palette:
     primary: 'light-green'
     accent: 'deep orange'

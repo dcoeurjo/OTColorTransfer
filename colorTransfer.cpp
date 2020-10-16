@@ -49,7 +49,8 @@ bool silent;
 void slicedTransfer(std::vector<float> &source,
                     const std::vector<float> &target,
                     const int nbSteps,
-                    const int batchSize)
+                    const int batchSize,
+                    const double factor)
 {
   //Random generator init to draw random line directions
   std::mt19937 gen;
@@ -119,7 +120,7 @@ void slicedTransfer(std::vector<float> &source,
     //Advection
     for(auto i = 0; i <3*N; ++i)
     {
-      source[i] += advect[i]/(float)batchSize;
+      source[i] += factor*advect[i]/(float)batchSize;
       advect[i] = 0.0;
     }
   }
@@ -146,6 +147,8 @@ int main(int argc, char **argv)
   app.add_option("--sigmaV", sigmaV, "Sigma parameter in the value domain for the bilateral regularization (5.0)");
   silent = false;
   app.add_flag("--silent", silent, "No verbose messages");
+  double factor = 1.0;
+  app.add_option("--factor", factor, "Displacement factor [0:1]");
   CLI11_PARSE(app, argc, argv);
   
   //Image loading
@@ -178,14 +181,14 @@ int main(int argc, char **argv)
   //Main computation
   auto start = std::chrono::system_clock::now();
   
-  slicedTransfer(sourcefloat, targetfloat, nbSteps, batchSize);
+  slicedTransfer(sourcefloat, targetfloat, nbSteps, batchSize, factor);
   
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double> elapsed_seconds = end - start;
   std::time_t end_time = std::chrono::system_clock::to_time_t(end);
   std::cout << "finished computation at " << std::ctime(&end_time)
   << "elapsed time: " << elapsed_seconds.count() << "s\n";
-  
+
   //Output
   std::vector<unsigned char> output(width*height*nbChannels);
   if (applyRegularization)
