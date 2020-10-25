@@ -1,12 +1,12 @@
 PROJECT(OTColorTransfer)
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.12)
 
 set (CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx -fno-signed-zeros -fno-trapping-math -funroll-loops")
 
 #find openmp
-find_package(OpenMP REQUIRED)
+find_package(OpenMP)
 IF(APPLE)
   include_directories("/usr/local/opt/libomp/include/")
 ENDIF()
