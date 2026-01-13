@@ -9,8 +9,15 @@
       
       
       
+      
+        <link rel="next" href="original/">
+      
+      
+        
+      
+      
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -18,32 +25,34 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.e35208c4.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#8bc34b">
-        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
       
-    
+      
+
+
     
     
       
+    
+    
+      
+        
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:300,400,400i,700%7CInconsolata&display=fallback">
-        <style>:root{--md-text-font-family:"PT Serif";--md-code-font-family:"Inconsolata"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"PT Serif";--md-code-font:"Inconsolata"}</style>
       
-    
     
     
       <link rel="stylesheet" href="extras.css">
     
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
     
     
   </head>
@@ -54,10 +63,8 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-green" data-md-color-accent="deep-orange">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="deep-orange">
   
-    
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -74,16 +81,22 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="." title="Color Transfer via Sliced Optimal Transport" class="md-header__button md-logo" aria-label="Color Transfer via Sliced Optimal Transport" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -102,45 +115,57 @@
       </div>
     </div>
     
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
       
-<div class="md-search" data-md-component="search" role="dialog">
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
   </div>
 </div>
+      
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/dcoeurjo/OTColorTransfer" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/dcoeurjo/OTColorTransfer" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     dcoeurjo/OTColorTransfer
@@ -149,11 +174,14 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -167,23 +195,23 @@
                     
 
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="." title="Color Transfer via Sliced Optimal Transport" class="md-nav__button md-logo" aria-label="Color Transfer via Sliced Optimal Transport" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     Color Transfer via Sliced Optimal Transport
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/dcoeurjo/OTColorTransfer" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/dcoeurjo/OTColorTransfer" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     dcoeurjo/OTColorTransfer
@@ -195,31 +223,57 @@
     
       
       
-      
-
   
   
     
   
   
+  
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Introduction
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="." class="md-nav__link md-nav__link--active">
-        Introduction
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -235,35 +289,55 @@
       
         <li class="md-nav__item">
   <a href="#introduction" class="md-nav__link">
-    Introduction
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#building-the-code" class="md-nav__link">
-    Building the code
+    <span class="md-ellipsis">
+      
+        Building the code
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" class="md-nav__link">
-    The theory:  Optimal Transport and Sliced Optimal Transport
+    <span class="md-ellipsis">
+      
+        The theory: Optimal Transport and Sliced Optimal Transport
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#sliced-ot-color-transfer" class="md-nav__link">
-    Sliced OT Color Transfer
+    <span class="md-ellipsis">
+      
+        Sliced OT Color Transfer
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#sliced-partial-optimal-transport" class="md-nav__link">
-    Sliced Partial Optimal Transport
+    <span class="md-ellipsis">
+      
+        Sliced Partial Optimal Transport
+      
+    </span>
   </a>
   
 </li>
@@ -278,14 +352,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="original/" class="md-nav__link">
-        Color Transfer (CPU/Balanced)
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Transfer (CPU/Balanced)
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -293,14 +379,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="partial/" class="md-nav__link">
-        Color Transfer (CPU/Partial)
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Transfer (CPU/Partial)
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -308,14 +406,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="nd/" class="md-nav__link">
-        nD Transfer (CPU)
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nD Transfer (CPU)
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -323,14 +433,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="todo/" class="md-nav__link">
-        Color Transfer (GPU/Balanced)
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Transfer (GPU/Balanced)
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -338,14 +460,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="python/" class="md-nav__link">
-        Python example code
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python example code
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -353,14 +487,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="license/" class="md-nav__link">
-        Author/License
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Author/License
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -368,14 +514,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="Changelog/" class="md-nav__link">
-        Changelog
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -383,14 +541,26 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="Contributing/" class="md-nav__link">
-        Contributing
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
       </a>
     </li>
   
@@ -408,6 +578,7 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -423,35 +594,55 @@
       
         <li class="md-nav__item">
   <a href="#introduction" class="md-nav__link">
-    Introduction
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#building-the-code" class="md-nav__link">
-    Building the code
+    <span class="md-ellipsis">
+      
+        Building the code
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#the-theory-optimal-transport-and-sliced-optimal-transport" class="md-nav__link">
-    The theory:  Optimal Transport and Sliced Optimal Transport
+    <span class="md-ellipsis">
+      
+        The theory: Optimal Transport and Sliced Optimal Transport
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#sliced-ot-color-transfer" class="md-nav__link">
-    Sliced OT Color Transfer
+    <span class="md-ellipsis">
+      
+        Sliced OT Color Transfer
+      
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#sliced-partial-optimal-transport" class="md-nav__link">
-    Sliced Partial Optimal Transport
+    <span class="md-ellipsis">
+      
+        Sliced Partial Optimal Transport
+      
+    </span>
   </a>
   
 </li>
@@ -464,12 +655,16 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
+          
+            <div class="md-content" data-md-component="content">
               
+              <article class="md-content__inner md-typeset">
                 
-                
-                <h1 id="color-transfer-via-sliced-optimal-transport">Color Transfer via Sliced Optimal Transport</h1>
+                  
+
+
+
+<h1 id="color-transfer-via-sliced-optimal-transport">Color Transfer via Sliced Optimal Transport</h1>
 <h2 id="introduction">Introduction</h2>
 <p>Color transfer is an image processing application where you want to retarget the
 color histogram of an input image according to the color histogram of a target one.</p>
@@ -498,52 +693,52 @@ efficient implementations of these tools are not so difficult.</p>
 <h2 id="building-the-code">Building the code</h2>
 <p>To compile the tools, just clone the repository and use <a href="http://cmake.org">cmake</a> to build
 the project:</p>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/dcoeurjo/OTColorTransfer.git
-<span class="nb">cd</span> OTColorTransfer
-mkdir build <span class="p">;</span> <span class="nb">cd</span> build
-cmake .. -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dcoeurjo/OTColorTransfer.git
+<span class="nb">cd</span><span class="w"> </span>OTColorTransfer
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
 make
 </code></pre></div>
 <p>Everything should compile with C++11 compiler. The only dependency is <a href="http://openmp.org">OpenMP</a>
 for multithread features that is usually shipped with the compiler by default.</p>
 <p>On Apple MacOS, the default <code>clang</code> compiler does not have OpenMP. Just install <code>omp</code> (<code>brew install omp</code>) and use the following <code>cmake</code> command line:</p>
-<div class="codehilite"><pre><span></span><code><span class="err"> cmake .. -DOpenMP_C_LIB_NAMES=&quot;omp&quot; -DOpenMP_CXX_FLAGS=&quot;-Xpreprocessor -fopenmp \</span>
-<span class="err">          -I/usr/local/opt/libomp/include&quot; -DOpenMP_CXX_LIB_NAMES=&quot;omp&quot; \</span>
-<span class="err">          -DOpenMP_omp_LIBRARY=/usr/local/opt/libomp/lib/libomp.dylib \</span>
-<span class="err">          -DOpenMP_C_FLAGS=&quot;-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include&quot;</span>
+<div class="codehilite"><pre><span></span><code> cmake .. -DOpenMP_C_LIB_NAMES=&quot;omp&quot; -DOpenMP_CXX_FLAGS=&quot;-Xpreprocessor -fopenmp \
+          -I/usr/local/opt/libomp/include&quot; -DOpenMP_CXX_LIB_NAMES=&quot;omp&quot; \
+          -DOpenMP_omp_LIBRARY=/usr/local/opt/libomp/lib/libomp.dylib \
+          -DOpenMP_C_FLAGS=&quot;-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include&quot;
 </code></pre></div>
 
 <h2 id="the-theory-optimal-transport-and-sliced-optimal-transport">The theory:  Optimal Transport and Sliced Optimal Transport</h2>
-<p>As mentioned above, the key tool will be Optimal Transport (OT for short) which can be sketched as follows: Given two  probability (Radon) measures <span><span class="MathJax_Preview">\mu\in X</span><script type="math/tex">\mu\in X</script></span> and <span><span class="MathJax_Preview">\nu\in Y</span><script type="math/tex">\nu\in Y</script></span>, and a <em>cost function</em> <span><span class="MathJax_Preview">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</span><script type="math/tex">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</script></span>, an optimal transport plan <span><span class="MathJax_Preview">T: X\rightarrow Y</span><script type="math/tex">T: X\rightarrow Y</script></span> minimizes</p>
-<div>
+<p>As mentioned above, the key tool will be Optimal Transport (OT for short) which can be sketched as follows: Given two  probability (Radon) measures <span class="arithmatex"><span class="MathJax_Preview">\mu\in X</span><script type="math/tex">\mu\in X</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\nu\in Y</span><script type="math/tex">\nu\in Y</script></span>, and a <em>cost function</em> <span class="arithmatex"><span class="MathJax_Preview">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</span><script type="math/tex">c(\cdot,\cdot): X\times Y \rightarrow \mathbb{R}^+</script></span>, an optimal transport plan <span class="arithmatex"><span class="MathJax_Preview">T: X\rightarrow Y</span><script type="math/tex">T: X\rightarrow Y</script></span> minimizes</p>
+<div class="arithmatex">
 <div class="MathJax_Preview">{\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}.}</div>
 <script type="math/tex; mode=display">{\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}.}</script>
 </div>
-<p>The cost of the optimal transport defines a metric between Radon measure. We can define the  <span><span class="MathJax_Preview">p^{th}</span><script type="math/tex">p^{th}</script></span> <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein metric</a>, <span><span class="MathJax_Preview">\mathcal{W}_p(\mu,\nu)</span><script type="math/tex">\mathcal{W}_p(\mu,\nu)</script></span> as</p>
-<div>
+<p>The cost of the optimal transport defines a metric between Radon measure. We can define the  <span class="arithmatex"><span class="MathJax_Preview">p^{th}</span><script type="math/tex">p^{th}</script></span> <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein metric</a>, <span class="arithmatex"><span class="MathJax_Preview">\mathcal{W}_p(\mu,\nu)</span><script type="math/tex">\mathcal{W}_p(\mu,\nu)</script></span> as</p>
+<div class="arithmatex">
 <div class="MathJax_Preview">\displaystyle \mathcal{W}_{p}(\mu ,\nu ):={\left(\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))^p\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}\right)^{1/p}}</div>
 <script type="math/tex; mode=display">\displaystyle \mathcal{W}_{p}(\mu ,\nu ):={\left(\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))^p\,\mathrm {d} \mu (x)\;\right|\;T_{*}(\mu )=\nu \right\}\right)^{1/p}}</script>
 </div>
-<p>An analogy with piles of sand is usually used to explain the definition: let us consider that <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> is a pile of sand and <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span> a hole (with the same <em>volume</em> or <em>mass</em>), if we consider that the cost of moving an elementary volume of sand from on point to the other is proportional to the Euclidean distance (<span><span class="MathJax_Preview">l_2</span><script type="math/tex">l_2</script></span> cost function), then the optimal transport plan gives you the most efficient way to move all the sand from <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> to <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span>. Again, the literature is huge and there are many alternative definitions, please refer to <a href="https://optimaltransport.github.io/book/">Computational Optimal Transport</a> for a more complete introduction to the subject.</p>
+<p>An analogy with piles of sand is usually used to explain the definition: let us consider that <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> is a pile of sand and <span class="arithmatex"><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span> a hole (with the same <em>volume</em> or <em>mass</em>), if we consider that the cost of moving an elementary volume of sand from on point to the other is proportional to the Euclidean distance (<span class="arithmatex"><span class="MathJax_Preview">l_2</span><script type="math/tex">l_2</script></span> cost function), then the optimal transport plan gives you the most efficient way to move all the sand from <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> to <span class="arithmatex"><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span>. Again, the literature is huge and there are many alternative definitions, please refer to <a href="https://optimaltransport.github.io/book/">Computational Optimal Transport</a> for a more complete introduction to the subject.</p>
 <p>The link between OT and color transfer follows the observation that color histograms are discrete Radon measures. As we are looking for the <em>most efficient</em> transformation of the input image histogram to match with the target one, the color transfer problem can be reformulate as a discrete OT one <sup id="fnref:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup><sup id="fnref:b2"><a class="footnote-ref" href="#fn:b2">2</a></sup> <sup id="fnref:b3"><a class="footnote-ref" href="#fn:b3">3</a></sup><sup id="fnref:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup><sup id="fnref:b5"><a class="footnote-ref" href="#fn:b5">5</a></sup><sup id="fnref:b6"><a class="footnote-ref" href="#fn:b6">6</a></sup>.</p>
-<p>There are many numerical solutions to compute the OT (with continuous, discrete, semi-discrete measures, w/o regularization&hellip;). We focus here on the <strong>sliced</strong> formulation of the OT and associated 2-Wasserstein metric in dimension <span><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>:</p>
-<div>
+<p>There are many numerical solutions to compute the OT (with continuous, discrete, semi-discrete measures, w/o regularization&hellip;). We focus here on the <strong>sliced</strong> formulation of the OT and associated 2-Wasserstein metric in dimension <span class="arithmatex"><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>:</p>
+<div class="arithmatex">
 <div class="MathJax_Preview"> SW(\mu,\nu)^2 := \int_{S^d} \mathcal{W}_2( P_{\theta,\sharp}\mu,P_{\theta,\sharp}\nu)^2 d\theta\,.</div>
 <script type="math/tex; mode=display"> SW(\mu,\nu)^2 := \int_{S^d} \mathcal{W}_2( P_{\theta,\sharp}\mu,P_{\theta,\sharp}\nu)^2 d\theta\,.</script>
 </div>
-<p>The sliced formulation consists in projecting the measures onto a 1D line (<span><span class="MathJax_Preview">P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}</span><script type="math/tex">P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}</script></span>), solving the 1D OT problem on the projections and average the results for all directions (<span><span class="MathJax_Preview">S^d</span><script type="math/tex">S^d</script></span> is the unit hypersphere in dimension <span><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>).</p>
-<p>If the measures are discrete as sum of Diracs centered at points <span><span class="MathJax_Preview">\{x_i\}</span><script type="math/tex">\{x_i\}</script></span> and <span><span class="MathJax_Preview">\{y_i\}</span><script type="math/tex">\{y_i\}</script></span> in <span><span class="MathJax_Preview">\mathbb{R}^d</span><script type="math/tex">\mathbb{R}^d</script></span> (<span><span class="MathJax_Preview">\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}</span><script type="math/tex">\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}</script></span>, <span><span class="MathJax_Preview">\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}</span><script type="math/tex">\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}</script></span>), then the 1D OT is obtained by sorting the projections and computing the difference between the first projected point of <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> with the first projected point of <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span>, the second with the second, etc&hellip;</p>
+<p>The sliced formulation consists in projecting the measures onto a 1D line (<span class="arithmatex"><span class="MathJax_Preview">P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}</span><script type="math/tex">P_{\theta,\sharp}: \mathbb{R}^d\rightarrow \mathbb{R}</script></span>), solving the 1D OT problem on the projections and average the results for all directions (<span class="arithmatex"><span class="MathJax_Preview">S^d</span><script type="math/tex">S^d</script></span> is the unit hypersphere in dimension <span class="arithmatex"><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>).</p>
+<p>If the measures are discrete as sum of Diracs centered at points <span class="arithmatex"><span class="MathJax_Preview">\{x_i\}</span><script type="math/tex">\{x_i\}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\{y_i\}</span><script type="math/tex">\{y_i\}</script></span> in <span class="arithmatex"><span class="MathJax_Preview">\mathbb{R}^d</span><script type="math/tex">\mathbb{R}^d</script></span> (<span class="arithmatex"><span class="MathJax_Preview">\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}</span><script type="math/tex">\mu := \frac{1}{n}\sum_{x_i} \delta_{x_i}</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}</span><script type="math/tex">\nu := \frac{1}{n}\sum_{y_i} \delta_{y_i}</script></span>), then the 1D OT is obtained by sorting the projections and computing the difference between the first projected point of <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> with the first projected point of <span class="arithmatex"><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span>, the second with the second, etc&hellip;</p>
 <p>$$ SW(\mu,\nu)^2 = \int_{S^d} \left(|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle| ^2\right) d\theta\,,$$
-(<span><span class="MathJax_Preview">\sigma_\theta(i)</span><script type="math/tex">\sigma_\theta(i)</script></span> a,d <span><span class="MathJax_Preview">{\kappa_\theta(i)}</span><script type="math/tex">{\kappa_\theta(i)}</script></span> are permutations with increasing order).</p>
-<p>Numerically, we sample the set of directions <span><span class="MathJax_Preview">S^d</span><script type="math/tex">S^d</script></span> and thus consider a finite number of <em>slices</em>.</p>
+(<span class="arithmatex"><span class="MathJax_Preview">\sigma_\theta(i)</span><script type="math/tex">\sigma_\theta(i)</script></span> a,d <span class="arithmatex"><span class="MathJax_Preview">{\kappa_\theta(i)}</span><script type="math/tex">{\kappa_\theta(i)}</script></span> are permutations with increasing order).</p>
+<p>Numerically, we sample the set of directions <span class="arithmatex"><span class="MathJax_Preview">S^d</span><script type="math/tex">S^d</script></span> and thus consider a finite number of <em>slices</em>.</p>
 <h2 id="sliced-ot-color-transfer">Sliced OT Color Transfer</h2>
-<p>Back to our histogram transfer problem, Diracs centers <span><span class="MathJax_Preview">\{x_i\}</span><script type="math/tex">\{x_i\}</script></span> are points in RGB space (one Dirac per pixel of the input image), and  <span><span class="MathJax_Preview">\{y_i\}</span><script type="math/tex">\{y_i\}</script></span> are the colors of the target image. Matching the histogram  can be seen a transportation of the point cloud <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> to <span><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span> in <span><span class="MathJax_Preview">\mathbb{R^3}</span><script type="math/tex">\mathbb{R^3}</script></span> (the RGB color space).</p>
-<p>The idea is to advect points of <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> such that we minimize <span><span class="MathJax_Preview">SW(\mu,\nu)</span><script type="math/tex">SW(\mu,\nu)</script></span>. As described in the literature<sup id="fnref2:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup><sup id="fnref2:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>, this amounts to project he points onto a random direction <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, <em>align</em> the sorted projections and advect <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> in the <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> direction by <span><span class="MathJax_Preview">|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|</span><script type="math/tex">|\langle  x_{\sigma_\theta(i)} - y_{\kappa_\theta(i)},\theta\rangle|</script></span>.</p>
+<p>Back to our histogram transfer problem, Diracs centers <span class="arithmatex"><span class="MathJax_Preview">\{x_i\}</span><script type="math/tex">\{x_i\}</script></span> are points in RGB space (one Dirac per pixel of the input image), and  <span class="arithmatex"><span class="MathJax_Preview">\{y_i\}</span><script type="math/tex">\{y_i\}</script></span> are the colors of the target image. Matching the histogram  can be seen a transportation of the point cloud <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> to <span class="arithmatex"><span class="MathJax_Preview">\nu</span><script type="math/tex">\nu</script></span> in <span class="arithmatex"><span class="MathJax_Preview">\mathbb{R^3}</span><script type="math/tex">\mathbb{R^3}</script></span> (the RGB color space).</p>
+<p>The idea is to advect points of <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> such that we minimize <span class="arithmatex"><span class="MathJax_Preview">SW(\mu,\nu)</span><script type="math/tex">SW(\mu,\nu)</script></span>. As described in the literature<sup id="fnref2:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup><sup id="fnref2:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>, this amounts to project he points onto a random direction <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, <em>align</em> the sorted projections and advect <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> in the <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> direction by <span class="arithmatex"><span class="MathJax_Preview">|\langle  y_{\sigma_\theta(i)} - x_{\kappa_\theta(i)},\theta\rangle|</span><script type="math/tex">|\langle  y_{\sigma_\theta(i)} - x_{\kappa_\theta(i)},\theta\rangle|</script></span>.</p>
 <p><img alt="" src="images/sliced.png" /></p>
-<p>and we iterate. Note that instead of advecting <span><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> for each <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, we can accumulate advection vectors into a small batch and perform the transport step  once the batch is full<sup id="fnref3:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>. For enough slices (see the code for the experiments), we end up with a retarged input image. If <span><span class="MathJax_Preview">K</span><script type="math/tex">K</script></span> denotes the number of slices, the overall computational cost of the approach in dimension <span><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span> is in <span><span class="MathJax_Preview">O(d\,K\, N\log N)</span><script type="math/tex">O(d\,K\, N\log N)</script></span>.</p>
+<p>and we iterate. Note that instead of advecting <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> for each <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, we can accumulate advection vectors into a small batch and perform the transport step  once the batch is full<sup id="fnref3:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>. For enough slices (see the code for the experiments), we end up with a retarged input image. If <span class="arithmatex"><span class="MathJax_Preview">K</span><script type="math/tex">K</script></span> denotes the number of slices, the overall computational cost of the approach in dimension <span class="arithmatex"><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span> is in <span class="arithmatex"><span class="MathJax_Preview">O(d\,K\, N\log N)</span><script type="math/tex">O(d\,K\, N\log N)</script></span>.</p>
 <p>Note that the transport plan can be regularized using a simple post-processing, <em>e.g.</em> a bilateral filter of the transportation map (difference between the input image and the retargeted one) which is then applied to the input image<sup id="fnref4:b4"><a class="footnote-ref" href="#fn:b4">4</a></sup>.  </p>
 <h2 id="sliced-partial-optimal-transport">Sliced Partial Optimal Transport</h2>
-<p>The original sliced OT requires the two measures to have the exact same number of Diracs (<span><span class="MathJax_Preview">e.g.</span><script type="math/tex">e.g.</script></span> input and target images must have the same size). When dealing with measures of different sizes, the combinatorial problem is more complex in the sense that we are not looking for a minimal cost bijective map between the Diracs, but an injective one. This problem is intensively discussed in the <a href="https://perso.liris.cnrs.fr/nicolas.bonneel/spot/">Sliced Partial Optimal Transport</a> SIGGRAPH paper<sup id="fnref2:b6"><a class="footnote-ref" href="#fn:b6">6</a></sup>.</p>
+<p>The original sliced OT requires the two measures to have the exact same number of Diracs (<span class="arithmatex"><span class="MathJax_Preview">e.g.</span><script type="math/tex">e.g.</script></span> input and target images must have the same size). When dealing with measures of different sizes, the combinatorial problem is more complex in the sense that we are not looking for a minimal cost bijective map between the Diracs, but an injective one. This problem is intensively discussed in the <a href="https://perso.liris.cnrs.fr/nicolas.bonneel/spot/">Sliced Partial Optimal Transport</a> SIGGRAPH paper<sup id="fnref2:b6"><a class="footnote-ref" href="#fn:b6">6</a></sup>.</p>
 <p><img alt="" src="images/partial.png" /></p>
 <p>In color matching applications such as that of [Pitié et al. 2005]<sup id="fnref3:b1"><a class="footnote-ref" href="#fn:b1">1</a></sup>, matching all pixels of an input image (a) seen as 3D points in an RGB space to all pixels of a target image (b) can lead to erroneous transfers (c) due to mismatched content (here, trees of the target are not present in the input, and distort colors in the output).
 <img alt="" src="images/spot.png" /></p>
@@ -570,51 +765,41 @@ for multithread features that is usually shipped with the compiler by default.</
 </li>
 </ol>
 </div>
-                
-              
-              
-                
 
 
-              
-            </article>
-          </div>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
       
-        
-<footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-      
-        <a href="original/" class="md-footer__link md-footer__link--next" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Color Transfer (CPU/Balanced)
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
+        <footer class="md-footer">
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
-        
-      </div>
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
     </div>
   </div>
@@ -624,10 +809,15 @@ for multithread features that is usually shipped with the compiler by default.</
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.4ea5477f.min.js"></script>
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
